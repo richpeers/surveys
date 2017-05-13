@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/surveys/create', 'SurveysController@create')->middleware('auth');
+Route::post('/surveys/store', 'SurveysController@store');
+
+
