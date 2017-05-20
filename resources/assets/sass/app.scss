@@ -1,9 +1,85 @@
-
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+// Bulma
+@import "./node_modules/bulma/bulma.sass";
 
-// Variables
-@import "variables";
+.shadow-under-nav .nav {
+  box-shadow: 0 1px 0 rgba(219, 219, 219, 0.3);
+}
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.question {
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  .q-head {
+    display: flex;
+    align-items: center;
+    height: 2.75em;
+    background-color: $white-ter;
+    border: 2px solid transparent;
+    border-radius: 3px;
+
+    .q-handle {
+      display: flex;
+      flex-grow: 0;
+      align-items: center;
+      justify-content: center;
+      height: 2.75em;
+      width: 2.75em;
+      cursor: move;
+    }
+    .q-title {
+      display: flex;
+      flex-grow: 1;
+    }
+    .q-left {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+    }
+    .q-right {
+      display: flex;
+      height: 2.75em;
+      width: 2.75em;
+      flex-grow: 0;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .q-body {
+    display: none;
+  }
+}
+
+#questions {
+  min-height: 30.5em;
+  padding-right: 1.5em;
+  border-right: 2px dashed grey;
+  .q-title {
+    border-right: 2px solid $white;
+  }
+}
+
+#questions.obvious-drop-area{
+  height: 30.5em;
+  border: 2px dashed grey;
+  padding: 1em;
+}
+
+#available .question {
+  cursor: move;
+  .q-title {
+    padding-left: 15px;
+  }
+}
+
+.sortable-ghost .q-head {
+  border: 2px dashed grey;
+  opacity: 0.5;
+  .q-title {
+    padding-left: 15px;
+  }
+}
+
+.sortable-drag {
+
+}
