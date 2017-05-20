@@ -117,13 +117,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             DragQuestionOptions: {
-                group: 'people',
+                group: 'survey',
                 animation: 150,
                 handle: '.q-handle'
             },
             DragAvailableOptions: {
                 group: {
-                    name: 'people',
+                    name: 'survey',
                     pull: 'clone',
                     put: false
                 },
@@ -132,6 +132,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             available: [{
                 type: "Welcome page",
                 type_id: 1,
+                showBody: false,
+
                 title: "Tell us what you think!",
                 description: "Please take a moment to fill out this short survey to let us know how we did and where we can improve.",
                 titleLabel: "Title",
@@ -140,6 +142,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 type: "Radio buttons",
                 type_id: 2,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 options: [{
@@ -156,6 +159,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 type: "Checkboxes",
                 type_id: 3,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 options: [{
@@ -172,6 +176,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 type: "Dropdown list",
                 type_id: 4,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 options: [{
@@ -188,30 +193,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, {
                 type: "Single line text",
                 type_id: 5,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 required: 0
             }, {
                 type: "Multiple line text",
                 type_id: 6,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 required: 0
             }, {
                 type: "Email address",
                 type_id: 7,
+                showBody: false,
                 title: "Enter your email",
                 description: "",
                 required: 1
             }, {
                 type: "Rating",
                 type_id: 8,
+                showBody: false,
                 title: "How would you rate us?",
                 description: "",
                 required: 1
             }, {
                 type: "Success page",
                 type_id: 9,
+                showBody: false,
                 title: "Thank you!",
                 description: "Your feedback is very important to us.",
                 required: 0
@@ -219,12 +229,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             questions: [{
                 type: "Multiple line text",
                 type_id: 6,
+                showBody: false,
                 title: "What question do you want to ask?",
                 description: "",
                 required: 0
             }, {
                 type: "Success page",
                 type_id: 9,
+                showBody: false,
                 title: "Thank you!",
                 description: "Your feedback is very important to us.",
                 required: 0
@@ -238,18 +250,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        add: function add() {
-            this.list.push({
-                name: 'Juan'
-            });
+        clone: function clone(el) {
+            return JSON.parse(JSON.stringify(el));
         },
-        replace: function replace() {
-            this.list = [{
-                name: 'Edgard'
-            }];
+        onAddQuestion: function onAddQuestion(evt) {
+            this.showQuestionBody(evt.newIndex);
         },
         removeQuestion: function removeQuestion(index) {
             this.questions.splice(index, 1);
+        },
+        hideQuestionBodyAll: function hideQuestionBodyAll() {
+            var i;
+            for (i = 0; i < this.questions.length; ++i) {
+                this.questions[i].showBody = false;
+            }
+        },
+        showQuestionBody: function showQuestionBody(index) {
+            this.hideQuestionBodyAll();
+            this.questions[index].showBody = true;
+        },
+        toggleQuestionBody: function toggleQuestionBody(index) {
+            if (this.questions[index].showBody) {
+                this.hideQuestionBodyAll();
+            } else {
+                this.showQuestionBody(index);
+            }
         }
     }
 });
@@ -261,6 +286,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -290,6 +317,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         removeQuestion: function removeQuestion() {
             this.$emit('remove_question', this.index);
+        },
+        toggleBody: function toggleBody() {
+            this.$emit('toggle_question_body', this.index);
         }
     }
 });
@@ -1855,7 +1885,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "q-head"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "q-title"
+    staticClass: "q-title",
+    on: {
+      "click": _vm.toggleBody
+    }
   }, [_c('span', {
     staticClass: "q-left"
   }, [_vm._v(_vm._s(_vm.question.title))]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
@@ -1866,8 +1899,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-times"
   })])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.question.showBody),
+      expression: "question.showBody"
+    }],
     staticClass: "q-body"
-  })])
+  }, [_c('p', [_vm._v("body is visible")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "q-handle"

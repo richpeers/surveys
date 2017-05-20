@@ -38,14 +38,15 @@
                             <draggable id="questions"
                                        v-bind:class="{ 'obvious-drop-area': questionsEmpty }"
                                        v-model="questions"
-                                       :options="DragQuestionOptions">
-                                <question
-                                        v-for="(question, index) in questions"
-                                        v-bind:key="index"
-                                        v-bind:question="question"
-                                        v-bind:index="index"
-                                        v-on:remove_question="removeQuestion"
-                                ></question>
+                                       :options="DragQuestionOptions" @add="onAddQuestion">
+                            <question
+                                    v-for="(question, index) in questions"
+                                    v-bind:key="index"
+                                    v-bind:question="question"
+                                    v-bind:index="index"
+                                    v-on:remove_question="removeQuestion"
+                                    v-on:toggle_question_body="toggleQuestionBody"
+                            ></question>
                             </draggable>
 
                         </div>
@@ -56,7 +57,8 @@
 
                             <draggable id="available"
                                        v-model="available"
-                                       :options="DragAvailableOptions">
+                                       :options="DragAvailableOptions"
+                                       :clone="clone">
                                 <available-question
                                         v-for="(question, index) in available"
                                         v-bind:key="index"
