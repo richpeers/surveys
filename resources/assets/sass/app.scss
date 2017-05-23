@@ -8,6 +8,7 @@
 }
 
 .question {
+  box-shadow: 0 1px 0 rgba(219, 219, 219, 0.3);
   margin-bottom: 0.75rem;
   cursor: pointer;
   .q-head {
@@ -17,7 +18,6 @@
     background-color: $white-ter;
     border: 2px solid transparent;
     border-radius: 3px;
-
     .q-handle {
       display: flex;
       flex-grow: 0;
@@ -26,10 +26,12 @@
       height: 2.75em;
       width: 2.75em;
       cursor: move;
+      border-right: 2px solid $white;
     }
     .q-title {
       display: flex;
       flex-grow: 1;
+
     }
     .q-left {
       display: flex;
@@ -45,38 +47,95 @@
       justify-content: center;
     }
   }
+  .q-body {
+    padding: 1em;
+    .label {
+      font-weight: normal;
+    }
+  }
+
+  .fa-sun-o {
+    color: $yellow;
+  }
+  .fa-dot-circle-o {
+    color: $text;
+  }
+  .fa-check-square-o {
+    color: $blue;
+  }
+  .fa-chevron-down {
+    color: $text;
+  }
+  .fa-font {
+    color: $blue;
+  }
+  .fa-pencil-square-o {
+    color: $text;
+  }
+  .fa-at {
+    color: $purple;
+  }
+  .fa-star-half-o {
+    color: $orange;
+  }
+  .fa-check {
+    color: $turquoise;
+  }
 }
 
 #questions {
   min-height: 30.5em;
   padding-right: 1.5em;
-  border-right: 2px dashed grey;
+  border-right: 2px dashed $grey-lighter;
   .q-title {
-    border-right: 2px solid $white;
+    padding-left: 1em;
+    .q-right {
+      border-right: 2px solid $white;
+    }
   }
 }
 
-#questions.obvious-drop-area{
+#questions.obvious-drop-area {
   height: 30.5em;
-  border: 2px dashed grey;
+  border: 2px dashed $grey-lighter;
   padding: 1em;
 }
 
 #available .question {
   cursor: move;
   .q-title {
-    padding-left: 15px;
+    span {
+      display: flex;
+
+      height: 2.75em;
+      &.q-icon {
+        width: 2.75em;
+        justify-content: center;
+      }
+      align-items: center;
+    }
   }
 }
 
-.sortable-ghost .q-head {
-  border: 2px dashed grey;
+.sortable-ghost {
+  border: 2px dashed $grey-light;
   opacity: 0.5;
   .q-title {
-    padding-left: 15px;
+    padding-left: 0 !important;
+    span {
+      display: flex;
+
+      height: 2.75em;
+      align-items: center;
+    }
+    .q-icon {
+      flex-grow: 0;
+      width: 2.75em;
+      justify-content: center;
+    }
+    .q-type {
+      flex-grow: 1;
+    }
   }
 }
 
-.sortable-drag {
-
-}

@@ -37,15 +37,14 @@
 
                             <draggable id="questions"
                                        v-bind:class="{ 'obvious-drop-area': questionsEmpty }"
-                                       v-model="questions"
-                                       :options="DragQuestionOptions" @add="onAddQuestion">
+                                       v-model="SurveyQuestions"
+                                       :options="DragQuestion" @add="onAdd">
                             <question
-                                    v-for="(question, index) in questions"
+                                    v-for="(question, index) in SurveyQuestions"
                                     v-bind:key="index"
                                     v-bind:question="question"
-                                    v-bind:index="index"
-                                    v-on:remove_question="removeQuestion"
-                                    v-on:toggle_question_body="toggleQuestionBody"
+                                    v-on:remove_question="remove(index)"
+                                    v-on:toggle_collapse="toggleCollapse(index)"
                             ></question>
                             </draggable>
 
@@ -56,14 +55,15 @@
                                         Survey Questions</i></span></h2>
 
                             <draggable id="available"
-                                       v-model="available"
-                                       :options="DragAvailableOptions"
+                                       v-model="AvailableQuestions"
+                                       :options="DragAvailable"
                                        :clone="clone">
-                                <available-question
-                                        v-for="(question, index) in available"
+                                <available
+                                        v-for="(question, index) in AvailableQuestions"
                                         v-bind:key="index"
                                         v-bind:type="question.type"
-                                ></available-question>
+                                        v-bind:icon="question.icon"
+                                ></available>
                             </draggable>
 
                         </div>
