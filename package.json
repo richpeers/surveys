@@ -14,7 +14,7 @@
     "bulma": "^0.4.1",
     "cross-env": "^3.2.3",
     "laravel-mix": "0.*",
-    "lodash": "^4.17.4",
+    "lodash.clonedeep": "^4.5.0",
     "vue": "^2.1.10",
     "vuedraggable": "^2.11.0"
   }

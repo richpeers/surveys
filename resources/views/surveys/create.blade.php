@@ -30,49 +30,9 @@
 
             <section class="section">
                 <div class="container">
-                    <div class="columns">
-                        <div class="column">
-
-                            <h2 class="title is-4">Survey Questions</h2>
-
-                            <draggable id="questions"
-                                       v-bind:class="{ 'obvious-drop-area': questionsEmpty }"
-                                       v-model="SurveyQuestions"
-                                       :options="DragQuestion" @add="onAdd">
-                            <question
-                                    v-for="(question, index) in SurveyQuestions"
-                                    v-bind:key="index"
-                                    v-bind:question="question"
-                                    v-on:remove_question="remove(index)"
-                                    v-on:toggle_collapse="toggleCollapse(index)"
-                            ></question>
-                            </draggable>
-
-                        </div>
-                        <div class="column">
-
-                            <h2 class="title is-4">Available Types<span class="subtitle"><i> - drag & drop into
-                                        Survey Questions</i></span></h2>
-
-                            <draggable id="available"
-                                       v-model="AvailableQuestions"
-                                       :options="DragAvailable"
-                                       :clone="clone">
-                                <available
-                                        v-for="(question, index) in AvailableQuestions"
-                                        v-bind:key="index"
-                                        v-bind:type="question.type"
-                                        v-bind:icon="question.icon"
-                                ></available>
-                            </draggable>
-
-                        </div>
-
-                    </div>
+                    <questions></questions>
                 </div>
             </section>
-
-
         </div>
     </create>
 
