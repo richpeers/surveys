@@ -2,48 +2,54 @@
     <div class="question">
 
         <div class="q-head">
-            <div class="q-handle"><i class="fa" v-bind:class="showBody ? params.icon + ' fa-lg' : 'fa-bars'"></i></div>
-            <div class="q-title" v-on:click="toggleCollapse">
-                <span v-if="showBody" class="q-left">{{params.type}}</span>
+            <div class="q-handle">
+                <i class="fa" v-bind:class="showBody ? icon + ' fa-lg' : 'fa-bars'"></i>
+            </div>
+            <div class="q-title" v-on:click="toggleBody">
+                <span v-if="showBody" class="q-left">{{type}}</span>
                 <span v-else="showBody" class="q-left">{{title}}</span>
                 <span class="q-right">
                     <i class="fa" v-bind:class="showBody ? 'fa-caret-up' : 'fa-caret-down'"></i>
                 </span>
             </div>
-            <div class="q-right" v-on:click="remove"><i class="fa fa-times"></i></div>
+
+            <dropdown @change="value => {runMethod(value)}">
+                <div class="q-right" slot="trigger">
+                    <i class="fa fa-cog"></i>
+                </div>
+                <dropdown-option value="remove">Remove</dropdown-option>
+            </dropdown>
+
         </div>
 
         <div class="q-body" v-show="showBody" :class="{expanded: showBody}">
-            <div class="field">
-                <label class="label">{{params.titleLabel}}</label>
-                <p class="control">
-                    <input class="input" type="text"
-                           :value="title"
-                           v-on:input="$emit('update:title', $event.target.value)"/>
-                </p>
-            </div>
+
             <div class="field">
                 <p class="control">
-                    <label class="label">Description</label>
-                    <textarea class="textarea"
-                              :value="description"
-                              v-on:input="$emit('update:description', $event.target.value)">
-                    </textarea>
+                    <label :for="'title-' + index" class="label">{{titleLabel}}</label>
+                    <input :id="'title-' + index" class="input" type="text" v-model="title">
                 </p>
             </div>
 
-            <answer-options v-if="params.isMultiAnswer" :answer-options="answerOptions"></answer-options>
+            <div class="field">
+                <p class="control">
+                    <label :for="'description-' + index" class="label">Description</label>
+                    <textarea :id="'description-' + index" class="textarea" v-model="description"></textarea>
+                </p>
+            </div>
 
-            <div v-if="params.canBeRequired" class="field">
+            <answer-options v-if="isMultiAnswer" :questionIndex="index"></answer-options>
+
+            <div v-if="canBeRequired" class="field">
                 <p class="control">
                     <label class="checkbox">
                         <input type="checkbox"
-                               :checked="required"
-                               v-on:change="$emit('change:required', !required)"/>
+                               v-model="required">
                         Answer required
                     </label>
                 </p>
             </div>
+
         </div>
 
     </div>
@@ -51,45 +57,78 @@
 
 <script>
     import AnswerOptions from './AnswerOptions.vue';
+    import BDropdown from "../../../../node_modules/buefy/src/components/dropdown/Dropdown";
 
     export default {
         components: {
+            BDropdown,
             AnswerOptions
         },
         props: {
-            params: {
-                type: Object,
-                required: true
+            index: {type: Number, required: true},
+            question: {type: Object, required: true},
+            params: {type: Object, required: true}
+        },
+        computed: {
+            type () {
+                return this.params.type;
             },
-            showBody: {
-                type: Boolean,
-                required: true
+            showBody () {
+                return this.question.showBody;
+            },
+            icon () {
+                return this.params.icon
+            },
+            titleLabel () {
+                return this.params.titleLabel;
+            },
+            isMultiAnswer () {
+                return this.params.isMultiAnswer;
+            },
+            canBeRequired () {
+                return this.params.canBeRequired;
             },
             title: {
-                type: String,
-                required: true
-            },
-            description: {
-                type: String,
-                required: true
-            },
-            answerOptions: {
-                type: Array,
-                default () {
-                    return [];
+                get() {
+                    return this.question.title;
+                },
+                set(value) {
+                    this.update('title', value);
                 }
             },
-            required: {
-                type: Boolean,
-                required: true
+            description: {
+                get() {
+                    return this.question.description;
+                },
+                set(value) {
+                    this.update('description', value);
+                }
             },
+            options () {
+                return this.question.options;
+            },
+            required: {
+                get() {
+                    return this.question.required;
+                },
+                set(value) {
+                    this.update('required', value);
+                }
+
+            }
         },
         methods: {
-            remove () {
-                this.$emit('remove_question');
+            update (property, value) {
+                this.$store.commit('updateQuestionProperty', {index: this.index, property, value});
             },
-            toggleCollapse () {
-                this.$emit('toggle_collapse');
+            toggleBody () {
+                this.$store.dispatch('toggleBody', this.index);
+            },
+            runMethod (value) {
+                this[value]();
+            },
+            remove () {
+                this.$store.commit('removeQuestion', this.index);
             }
         }
     }

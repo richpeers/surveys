@@ -1,5 +1,5 @@
 <script>
-    import {SurveyQuestions} from '../utils/sharedState.js';
+
 
     import Questions from './Questions.vue';
 
@@ -7,8 +7,6 @@
         components: {
             Questions
         },
-        data: () => ({
-            SurveyQuestions
-        })
+        data: () => ({})
     }
 </script>

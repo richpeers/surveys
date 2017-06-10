@@ -6,7 +6,7 @@
             </a>
         </p>
         <p class="control is-expanded">
-            <input class="input" :value="answer" placeholder="Answer Option">
+            <input class="input" v-model="answer" placeholder="Answer Option">
         </p>
         <p class="control">
             <a class="button">
@@ -18,14 +18,45 @@
 
 <script>
     export default {
+        name: 'answer-option',
         props: {
-            answer: {
-                type: String,
+            index: {
+                type: Number,
                 required: true
             },
-            canComment: {
-                type: Boolean,
+            questionIndex: {
+                type: Number,
                 required: true
+            },
+            option: {
+                type: Object,
+                required: true
+            }
+        },
+        computed: {
+            answer: {
+                get() {
+                    return this.option.answer;
+                },
+                set(value) {
+                    this.update('answer', value);
+                }
+            },
+            canComment() {
+                return this.option.canComment;
+            }
+        },
+        methods: {
+            update (property, value) {
+                this.$store.commit('updateAnswerOptionProperty', {
+                    questionIndex: this.questionIndex,
+                    index: this.index,
+                    property,
+                    value
+                });
+            },
+            toggleCanComment () {
+                this.update('canComment', !this.canComment);
             }
         }
     }

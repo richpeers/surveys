@@ -2,8 +2,8 @@
     <div class="question">
         <div class="q-head">
             <div class="q-title">
-                <span class="q-icon"><i class="fa fa-lg" v-bind:class="iconClass"></i></span>
-                <span class="q-type">{{params.type}}</span>
+                <span class="q-icon"><i class="fa fa-lg" v-bind:class="icon"></i></span>
+                <span class="q-type">{{type}}</span>
             </div>
         </div>
     </div>
@@ -18,10 +18,11 @@
             }
         },
         computed: {
-            iconClass () {
-                return {
-                    [this.params.icon]: true,
-                }
+            icon () {
+                return this.params.icon;
+            },
+            type () {
+                return this.params.type;
             }
         }
     }

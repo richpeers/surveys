@@ -1,7 +1,38 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-// Bulma
-@import "./node_modules/bulma/bulma.sass";
+
+//@import "./node_modules/bulma/sass/utilities/initial-variables.sass";
+//@import "theme-variables.scss";
+@import "./node_modules/bulma/bulma";
+
+//@import './node_modules/buefy/src/scss/buefy.scss';
+
+//@import "./node_modules/buefy/src/scss/utils/_theme_variables";
+
+@import "./node_modules/buefy/src/scss/utils/_functions";
+@import "./node_modules/buefy/src/scss/utils/_variables";
+@import "./node_modules/buefy/src/scss/utils/_animations";
+
+
+//@import "./node_modules/buefy/src/scss/components/_autocomplete";
+//@import "./node_modules/buefy/src/scss/components/_checkbox";
+//@import "./node_modules/buefy/src/scss/components/_dialog";
+@import "./node_modules/buefy/src/scss/components/_dropdown";
+//@import "./node_modules/buefy/src/scss/components/_form";
+@import "./node_modules/buefy/src/scss/components/_icon";
+//@import "./node_modules/buefy/src/scss/components/_messages";
+//@import "./node_modules/buefy/src/scss/components/_modal";
+//@import "./node_modules/buefy/src/scss/components/_notices";
+//@import "./node_modules/buefy/src/scss/components/_pagination";
+//@import "./node_modules/buefy/src/scss/components/_radio";
+//@import "./node_modules/buefy/src/scss/components/_select";
+//@import "./node_modules/buefy/src/scss/components/_switch";
+//@import "./node_modules/buefy/src/scss/components/_table";
+//@import "./node_modules/buefy/src/scss/components/_tabs";
+//@import "./node_modules/buefy/src/scss/components/_tooltip";
+
+//@import './node_modules/buefy/src/scss/buefy.scss';
+
 
 .shadow-under-nav .nav {
   box-shadow: 0 1px 0 rgba(219, 219, 219, 0.3);
@@ -38,6 +69,15 @@
       display: flex;
       flex-grow: 1;
       cursor: pointer;
+    }
+    .dropdown {
+      a.trigger {
+        color: $text!important;
+      }
+      .is-dropdown {
+        top: 2.9em;
+      }
+
     }
     .q-left {
       display: flex;

@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -7,7 +6,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
+
+import Vue from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,9 +16,31 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('create', require('./components/Create.vue'));
-Vue.component('draggable', require('vuedraggable'));
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+import state from './store/state';
+import * as getters from './store/getters';
+import * as mutations from './store/mutations';
+import * as actions from './store/actions';
+
+const store = new Vuex.Store({
+    state,
+    getters,
+    mutations,
+    actions
+});
+
+import {Dropdown, DropdownOption} from './components/dropdown';
+Vue.component('dropdown', Dropdown);
+Vue.component('dropdown-option', DropdownOption);
+
+import Create from './components/Create.vue';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
+    components: {
+        Create,
+    }
 });
