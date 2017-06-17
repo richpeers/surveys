@@ -13,11 +13,15 @@
                 </span>
             </div>
 
-            <dropdown @change="value => {runMethod(value)}">
-                <div class="q-right" slot="trigger">
+            <dropdown>
+                <div slot="toggle" class="q-right">
                     <i class="fa fa-cog"></i>
                 </div>
-                <dropdown-option value="remove">Remove</dropdown-option>
+                <ul class="menu-list">
+                    <li><a @click="remove">Remove</a></li>
+                    <li><a>option 2</a></li>
+                    <li><a>option 3</a></li>
+                </ul>
             </dropdown>
 
         </div>

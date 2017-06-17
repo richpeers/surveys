@@ -1,38 +1,14 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
 //@import "./node_modules/bulma/sass/utilities/initial-variables.sass";
 //@import "theme-variables.scss";
 @import "./node_modules/bulma/bulma";
 
-//@import './node_modules/buefy/src/scss/buefy.scss';
+@import "/components/dropdown";
 
-//@import "./node_modules/buefy/src/scss/utils/_theme_variables";
-
-@import "./node_modules/buefy/src/scss/utils/_functions";
-@import "./node_modules/buefy/src/scss/utils/_variables";
-@import "./node_modules/buefy/src/scss/utils/_animations";
-
-
-//@import "./node_modules/buefy/src/scss/components/_autocomplete";
-//@import "./node_modules/buefy/src/scss/components/_checkbox";
-//@import "./node_modules/buefy/src/scss/components/_dialog";
-@import "./node_modules/buefy/src/scss/components/_dropdown";
-//@import "./node_modules/buefy/src/scss/components/_form";
-@import "./node_modules/buefy/src/scss/components/_icon";
-//@import "./node_modules/buefy/src/scss/components/_messages";
-//@import "./node_modules/buefy/src/scss/components/_modal";
-//@import "./node_modules/buefy/src/scss/components/_notices";
-//@import "./node_modules/buefy/src/scss/components/_pagination";
-//@import "./node_modules/buefy/src/scss/components/_radio";
-//@import "./node_modules/buefy/src/scss/components/_select";
-//@import "./node_modules/buefy/src/scss/components/_switch";
-//@import "./node_modules/buefy/src/scss/components/_table";
-//@import "./node_modules/buefy/src/scss/components/_tabs";
-//@import "./node_modules/buefy/src/scss/components/_tooltip";
-
-//@import './node_modules/buefy/src/scss/buefy.scss';
-
+[v-cloak] {
+  display: none;
+}
 
 .shadow-under-nav .nav {
   box-shadow: 0 1px 0 rgba(219, 219, 219, 0.3);
@@ -72,7 +48,7 @@
     }
     .dropdown {
       a.trigger {
-        color: $text!important;
+        color: $text !important;
       }
       .is-dropdown {
         top: 2.9em;
@@ -86,6 +62,7 @@
     }
     .q-right {
       display: flex;
+      cursor: pointer;
       height: 2.75em;
       width: 2.75em;
       flex-grow: 0;
@@ -114,6 +91,8 @@
 
   .q-title {
     padding-left: 1em;
+    white-space: nowrap;
+    overflow: hidden;
     .q-right {
       border-right: 2px solid $white;
     }
@@ -218,4 +197,3 @@
   padding-top: calc(0.3em - 1px);
   margin-bottom: 0.5em !important;
 }
-

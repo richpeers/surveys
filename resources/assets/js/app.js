@@ -31,16 +31,16 @@ const store = new Vuex.Store({
     actions
 });
 
-import {Dropdown, DropdownOption} from './components/dropdown';
+import Dropdown from './components/Dropdown.vue';
 Vue.component('dropdown', Dropdown);
-Vue.component('dropdown-option', DropdownOption);
 
 import Create from './components/Create.vue';
 
 const app = new Vue({
     el: '#app',
     store,
-    components: {
-        Create,
+    components: {Create},
+    data: {
+        navIsActive: false
     }
 });

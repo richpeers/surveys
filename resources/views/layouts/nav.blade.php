@@ -8,24 +8,20 @@
 
         <div class="nav-center">
             <a class="nav-item" href="https://github.com/richpeers" target="_blank">
-      <span class="icon">
-        <i class="fa fa-github"></i>
-      </span>
+                <span class="icon"><i class="fa fa-github"></i></span>
             </a>
             <a class="nav-item" href="https://twitter.com/richpeers" target="_blank">
-      <span class="icon">
-        <i class="fa fa-twitter"></i>
-      </span>
+                <span class="icon"> <i class="fa fa-twitter"></i></span>
             </a>
         </div>
 
-        <span id="nav-toggle" class="nav-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </span>
+        <span id="nav-toggle" class="nav-toggle"
+              @click="navIsActive = !navIsActive"
+              :class="{'is-active' :  navIsActive}">
+            <span></span><span></span><span></span>
+        </span>
 
-        <div id="nav-menu" class="nav-right nav-menu">
+        <div id="nav-menu" class="nav-right nav-menu" :class="{'is-active' : navIsActive}">
             <a class="nav-item is-active" href="{{ url('/surveys/create') }}">
                 Create Survey
             </a>

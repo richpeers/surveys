@@ -8,8 +8,10 @@
                     <span class="icon is-right"> <i class="fa fa-pencil-square-o"></i></span>
                 </p>
             </div>
-            <draggable v-model="questions" :options="DragQuestion" @add="onAdd"
-                       id="questions" v-bind:class="{ 'obvious-drop-area': questionsEmpty }">
+            <draggable id="questions"
+                       v-model="questions"
+                       :options="DragQuestion"
+                       v-bind:class="{ 'obvious-drop-area': questionsEmpty }">
                 <question v-for="(question, index) in questions" :key="index"
                           :index="index"
                           :question="question"
@@ -22,15 +24,16 @@
             <h2 class="title available-title">Question Types
                 <span class="subtitle"><i> - drag & drop into {{title}}</i></span>
             </h2>
-            <draggable v-model="available" :options="DragAvailable"
-                       id="available" :clone="clone">
-                <available v-for="(question, index) in available" :key="index"
+            <draggable id="available"
+                       v-model="available"
+                       :options="DragAvailable"
+                       :clone="clone">
+                <available v-for="(question, index) in available"
+                           :key="index"
                            :params="questionTypeParams[question.type_id]"
                 ></available>
             </draggable>
         </div>
-
-
 
     </div>
 </template>
@@ -72,9 +75,6 @@
         methods: {
             clone (el) {
                 return cloneDeep(el); // lodash.clonedeep 4.17.4
-            },
-            onAdd (evt) {
-                this.$store.dispatch('expand', evt.newIndex);
             }
         }
     }

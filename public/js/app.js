@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 65);
+/******/ 	return __webpack_require__(__webpack_require__.s = 67);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -920,7 +920,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
         this.componentMode = this.element.toLowerCase() !== this.$el.nodeName.toLowerCase();
         if (this.componentMode && this.transitionMode) {
-          throw new Error('Transition-group inside component is not suppported. Please alter element value or remove transition-group. Current element value: ' + this.element);
+          throw new Error('Transition-group inside component is not supported. Please alter element value or remove transition-group. Current element value: ' + this.element);
         }
         var optionsAdded = {};
         eventsListened.forEach(function (elt) {
@@ -931,9 +931,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           optionsAdded['on' + elt] = emit.bind(_this3, elt);
         });
 
-        var options = _extends({}, this.options, optionsAdded, { onMove: function onMove(evt) {
-            return _this3.onDragMove(evt);
+        var options = _extends({}, this.options, optionsAdded, { onMove: function onMove(evt, originalEvent) {
+            return _this3.onDragMove(evt, originalEvent);
           } });
+        !('draggable' in options) && (options.draggable = '>*');
         this._sortable = new Sortable(this.rootContainer, options);
         this.computeIndexes();
       },
@@ -1107,13 +1108,15 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           if (!relatedContext.element) {
             return 0;
           }
-          var domChildren = [].concat(_toConsumableArray(evt.to.children));
+          var domChildren = [].concat(_toConsumableArray(evt.to.children)).filter(function (el) {
+            return el.style['display'] !== 'none';
+          });
           var currentDOMIndex = domChildren.indexOf(evt.related);
           var currentIndex = relatedContext.component.getVmIndex(currentDOMIndex);
           var draggedInList = domChildren.indexOf(draggingElement) != -1;
-          return draggedInList ? currentIndex : currentIndex + 1;
+          return draggedInList || !evt.willInsertAfter ? currentIndex : currentIndex + 1;
         },
-        onDragMove: function onDragMove(evt) {
+        onDragMove: function onDragMove(evt, originalEvent) {
           var onMove = this.move;
           if (!onMove || !this.realList) {
             return true;
@@ -1124,7 +1127,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
           var futureIndex = this.computeFutureIndex(relatedContext, evt);
           _extends(draggedContext, { futureIndex: futureIndex });
           _extends(evt, { relatedContext: relatedContext, draggedContext: draggedContext });
-          return onMove(evt);
+          return onMove(evt, originalEvent);
         },
         onDragEnd: function onDragEnd(evt) {
           this.computeIndexes();
@@ -1135,7 +1138,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return draggableComponent;
   }
 
-if (true) {
+  if (true) {
     var Sortable = __webpack_require__(48);
     module.exports = buildDraggable(Sortable);
   } else if (typeof define == "function" && define.amd) {
@@ -1181,14 +1184,15 @@ module.exports = g;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_state__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_getters__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_mutations__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_actions__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_dropdown__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_state__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store_getters__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_mutations__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_actions__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Dropdown_vue__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Dropdown_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Dropdown_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Create_vue__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Create_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_Create_vue__);
 /**
@@ -1197,7 +1201,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(37);
+__webpack_require__(38);
 
 // window.Vue = require('vue');
 
@@ -1225,16 +1229,16 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 });
 
 
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('dropdown', __WEBPACK_IMPORTED_MODULE_6__components_dropdown__["a" /* Dropdown */]);
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('dropdown-option', __WEBPACK_IMPORTED_MODULE_6__components_dropdown__["b" /* DropdownOption */]);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('dropdown', __WEBPACK_IMPORTED_MODULE_6__components_Dropdown_vue___default.a);
 
 
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     store: store,
-    components: {
-        Create: __WEBPACK_IMPORTED_MODULE_7__components_Create_vue___default.a
+    components: { Create: __WEBPACK_IMPORTED_MODULE_7__components_Create_vue___default.a },
+    data: {
+        navIsActive: false
     }
 });
 
@@ -2161,9 +2165,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         whiteList: function whiteList() {
             var whiteList = [];
             whiteList.push(this.$refs.dropdown);
-            whiteList.push(this.$refs.trigger);
+            whiteList.push(this.$refs.trigger
             // Adds all chidren from dropdown
-            if (this.$refs.dropdown !== undefined) {
+            );if (this.$refs.dropdown !== undefined) {
                 var children = this.$refs.dropdown.querySelectorAll('*');
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
@@ -2422,7 +2426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Questions_vue__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Questions_vue__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Questions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Questions_vue__);
 
 
@@ -2443,10 +2447,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        position: {
+            type: String,
+            default: 'is-bottom-right',
+            validator: function validator(value) {
+                return ['is-top-right', 'is-top-left', 'is-bottom-right', 'is-bottom-left'].indexOf(value) > -1;
+            }
+        }
+    },
+    data: function data() {
+        return {
+            isOpen: false
+        };
+    },
+    methods: {
+        close: function close(event) {
+            var toggle = this.$refs.toggle;
+            if (toggle !== undefined && !toggle.contains(event.target)) {
+                this.isOpen = false;
+            }
+        }
+    },
+    created: function created() {
+        if (typeof window !== 'undefined') {
+            document.addEventListener('click', this.close);
+        }
+    },
+    beforeDestroy: function beforeDestroy() {
+        if (typeof window !== 'undefined') {
+            document.removeEventListener('click', this.close);
+        }
+    }
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerOptions_vue__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerOptions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AnswerOptions_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_buefy_src_components_dropdown_Dropdown__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_buefy_src_components_dropdown_Dropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_buefy_src_components_dropdown_Dropdown__);
+//
+//
+//
+//
 //
 //
 //
@@ -2584,7 +2654,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2593,10 +2663,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_clonedeep___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_clonedeep__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuedraggable__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuedraggable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Question_vue__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Question_vue__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Question_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Question_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Available_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Available_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Available_vue__);
+//
+//
+//
 //
 //
 //
@@ -2674,15 +2747,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         clone: function clone(el) {
             return __WEBPACK_IMPORTED_MODULE_0_lodash_clonedeep___default()(el); // lodash.clonedeep 4.17.4
-        },
-        onAdd: function onAdd(evt) {
-            this.$store.dispatch('expand', evt.newIndex);
         }
     }
 });
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -2725,7 +2795,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2795,7 +2865,7 @@ var toggleCanComment = function toggleCanComment(_ref6, questionIndex, index) {
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2840,7 +2910,7 @@ var getAnswerOption = function getAnswerOption(getters) {
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2887,7 +2957,7 @@ var updateAnswerOptionProperty = function updateAnswerOptionProperty(state, _ref
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2988,7 +3058,7 @@ var AvailableQuestions = [{
 /* harmony default export */ __webpack_exports__["a"] = (AvailableQuestions);
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3008,7 +3078,7 @@ var NewSurveyQuestions = [{
 /* harmony default export */ __webpack_exports__["a"] = (NewSurveyQuestions);
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3089,13 +3159,13 @@ var QuestionTypeParams = {
 /* harmony default export */ __webpack_exports__["a"] = (QuestionTypeParams);
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AvailableQuestions__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewSurveyQuestions__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__QuestionTypeParams__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AvailableQuestions__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewSurveyQuestions__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__QuestionTypeParams__ = __webpack_require__(44);
 
 
 
@@ -3107,7 +3177,6 @@ var QuestionTypeParams = {
 });
 
 /***/ }),
-/* 45 */,
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4860,7 +4929,7 @@ function stubFalse() {
 
 module.exports = cloneDeep;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(64)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(66)(module)))
 
 /***/ }),
 /* 47 */
@@ -6561,7 +6630,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(61),
+  __webpack_require__(63),
   /* scopeId */
   null,
   /* cssModules */
@@ -6595,7 +6664,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(58),
   /* scopeId */
   null,
   /* cssModules */
@@ -6629,7 +6698,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -6663,7 +6732,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(60),
   /* scopeId */
   null,
   /* cssModules */
@@ -6730,7 +6799,41 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(62),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\code\\surveys\\resources\\assets\\js\\components\\Dropdown.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Dropdown.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d39cc3dc", Component.options)
+  } else {
+    hotAPI.reload("data-v-d39cc3dc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(57),
   /* scopeId */
   null,
   /* cssModules */
@@ -6757,14 +6860,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(60),
+  __webpack_require__(61),
   /* scopeId */
   null,
   /* cssModules */
@@ -6791,7 +6894,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -6818,22 +6921,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa",
     class: _vm.showBody ? 'fa-caret-up' : 'fa-caret-down'
-  })])]), _vm._v(" "), _c('dropdown', {
-    on: {
-      "change": function (value) {
-        _vm.runMethod(value)
-      }
-    }
-  }, [_c('div', {
+  })])]), _vm._v(" "), _c('dropdown', [_c('div', {
     staticClass: "q-right",
-    slot: "trigger"
+    slot: "toggle"
   }, [_c('i', {
     staticClass: "fa fa-cog"
-  })]), _vm._v(" "), _c('dropdown-option', {
-    attrs: {
-      "value": "remove"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, [_c('li', [_c('a', {
+    on: {
+      "click": _vm.remove
     }
-  }, [_vm._v("Remove")])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("Remove")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("option 2")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("option 3")])])])])], 1), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -6955,7 +7054,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7010,7 +7109,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7051,7 +7150,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7079,7 +7178,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7117,11 +7216,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'obvious-drop-area': _vm.questionsEmpty
     },
     attrs: {
-      "options": _vm.DragQuestion,
-      "id": "questions"
-    },
-    on: {
-      "add": _vm.onAdd
+      "id": "questions",
+      "options": _vm.DragQuestion
     },
     model: {
       value: (_vm.questions),
@@ -7147,8 +7243,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "subtitle"
   }, [_c('i', [_vm._v(" - drag & drop into " + _vm._s(_vm.title))])])]), _vm._v(" "), _c('draggable', {
     attrs: {
-      "options": _vm.DragAvailable,
       "id": "available",
+      "options": _vm.DragAvailable,
       "clone": _vm.clone
     },
     model: {
@@ -7182,7 +7278,45 @@ if (false) {
 }
 
 /***/ }),
-/* 61 */
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "dropdown"
+  }, [_c('div', {
+    ref: "toggle",
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.isOpen = !_vm.isOpen
+      }
+    }
+  }, [_vm._t("toggle")], 2), _vm._v(" "), (_vm.isOpen) ? _c('div', {
+    key: "bg",
+    staticClass: "background is-hidden-desktop"
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isOpen),
+      expression: "isOpen"
+    }],
+    class: ['menu', _vm.position]
+  }, [_vm._t("default")], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d39cc3dc", module.exports)
+  }
+}
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7233,12 +7367,12 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.3
+ * Vue.js v2.3.4
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -11667,7 +11801,7 @@ Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   }
 });
 
-Vue$3.version = '2.3.3';
+Vue$3.version = '2.3.4';
 
 /*  */
 
@@ -12158,6 +12292,7 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
+      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {
@@ -16931,7 +17066,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17744,7 +17879,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -17772,400 +17907,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
-
-/***/ }),
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'bDropdown',
-    props: {
-        value: {
-            type: [String, Number, Object, Boolean, Array],
-            default: null
-        },
-        narrowed: Boolean,
-        disabled: Boolean,
-        position: {
-            type: String,
-            default: 'is-bottom-right',
-            validator: function validator(value) {
-                return ['is-top-right', 'is-top-left', 'is-bottom-right', 'is-bottom-left'].indexOf(value) > -1;
-            }
-        }
-    },
-    data: function data() {
-        return {
-            selected: this.value,
-            isActive: false,
-            _isDropdown: true // Used internally by DropdownOption
-        };
-    },
-
-    watch: {
-        /**
-         * When v-model is changed set the new selected option.
-         */
-        value: function value(_value) {
-            this.selectOption(_value);
-        }
-    },
-    computed: {
-        /**
-         * White-listed items to not close when clicked.
-         * Add input, dropdown, trigger and all children.
-         */
-        whiteList: function whiteList() {
-            var whiteList = [];
-            whiteList.push(this.$refs.dropdown);
-            whiteList.push(this.$refs.trigger);
-            // Adds all chidren from dropdown
-            if (this.$refs.dropdown !== undefined) {
-                var children = this.$refs.dropdown.querySelectorAll('*');
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var child = _step.value;
-
-                        whiteList.push(child);
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-            }
-            // Adds all children from trigger
-            if (this.$refs.trigger !== undefined) {
-                var _children = this.$refs.trigger.querySelectorAll('*');
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
-
-                try {
-                    for (var _iterator2 = _children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var _child = _step2.value;
-
-                        whiteList.push(_child);
-                    }
-                } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
-                        }
-                    } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
-                        }
-                    }
-                }
-            }
-            return whiteList;
-        }
-    },
-    methods: {
-        /**
-         * Click listener from DropdownOption.
-         *   1. Set new selected option.
-         *   2. Emit input event to update the user v-model.
-         *   3. Close the dropdown.
-         */
-        selectOption: function selectOption(value, isClickable) {
-            if (!isClickable) return;
-            this.selected = value;
-            this.$emit('input', value);
-            this.$emit('change', value);
-            this.isActive = false;
-        },
-
-        /**
-         * Close dropdown if clicked outside.
-         */
-        clickedOutside: function clickedOutside(event) {
-            if (this.whiteList.indexOf(event.target) < 0) this.isActive = false;
-        }
-    },
-    created: function created() {
-        if (typeof window !== 'undefined') {
-            document.addEventListener('click', this.clickedOutside);
-        }
-    },
-    beforeDestroy: function beforeDestroy() {
-        if (typeof window !== 'undefined') {
-            document.removeEventListener('click', this.clickedOutside);
-        }
-    }
-});
-
-/***/ }),
-/* 76 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'bDropdownOption',
-    props: {
-        value: {
-            type: [String, Number, Object, Boolean, Array],
-            default: null
-        },
-        separator: Boolean,
-        disabled: Boolean,
-        subheader: Boolean
-    },
-    computed: {
-        isClickable: function isClickable() {
-            return !this.separator && !this.disabled && !this.subheader;
-        }
-    },
-    created: function created() {
-        // $parent is actually the transition-group
-        if (!this.$parent.$parent.$data._isDropdown) {
-            this.$destroy();
-            throw new Error('You should wrap bDropdownOption on a bDropdown');
-        }
-    }
-});
-
-/***/ }),
-/* 77 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Dropdown__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Dropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Dropdown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DropdownOption__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DropdownOption___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__DropdownOption__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Dropdown___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__DropdownOption___default.a; });
-
-
-
-
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(75),
-  /* template */
-  __webpack_require__(80),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\code\\surveys\\resources\\assets\\js\\components\\dropdown\\Dropdown.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Dropdown.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-51f919de", Component.options)
-  } else {
-    hotAPI.reload("data-v-51f919de", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(76),
-  /* template */
-  __webpack_require__(81),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\code\\surveys\\resources\\assets\\js\\components\\dropdown\\DropdownOption.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DropdownOption.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7c65a11a", Component.options)
-  } else {
-    hotAPI.reload("data-v-7c65a11a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "dropdown control",
-    class: {
-      'is-disabled': _vm.disabled
-    }
-  }, [_c('a', {
-    ref: "trigger",
-    staticClass: "trigger",
-    attrs: {
-      "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.isActive = !_vm.isActive
-      }
-    }
-  }, [_vm._t("trigger")], 2), _vm._v(" "), _c('transition-group', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.isActive) ? _c('div', {
-    key: "bg",
-    staticClass: "background is-hidden-desktop"
-  }) : _vm._e(), _vm._v(" "), _c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.isActive),
-      expression: "isActive"
-    }],
-    key: "dropdown",
-    ref: "dropdown",
-    staticClass: "box",
-    class: ['is-dropdown', _vm.position, {
-      'is-narrow': _vm.narrowed
-    }]
-  }, [_c('ul', [_vm._t("default")], 2)])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-51f919de", module.exports)
-  }
-}
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', {
-    staticClass: "option",
-    class: {
-      'is-subheader': _vm.subheader,
-      'is-disabled': _vm.disabled,
-      'is-separator': _vm.separator,
-      'is-selected': _vm.value !== null && _vm.value === _vm.$parent.$parent.selected
-    },
-    on: {
-      "click": function($event) {
-        _vm.$parent.$parent.selectOption(_vm.value, _vm.isClickable)
-      }
-    }
-  }, [_vm._t("default")], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7c65a11a", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
