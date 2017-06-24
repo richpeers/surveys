@@ -1,9 +1,8 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 //@import "./node_modules/bulma/sass/utilities/initial-variables.sass";
-//@import "theme-variables.scss";
+@import "theme-variables.scss";
 @import "./node_modules/bulma/bulma";
-
 @import "/components/dropdown";
 
 [v-cloak] {
@@ -23,7 +22,7 @@
     align-items: center;
     height: 2.75em;
     background-color: $white-ter;
-    border: 2px solid transparent;
+    border: 1px solid $border;
     border-radius: 3px;
     .q-handle {
       display: flex;
@@ -33,7 +32,7 @@
       height: 2.75em;
       width: 2.75em;
       cursor: grab;
-      border-right: 2px solid $white;
+      //border-right: 2px solid $border;
       .fa {
         color: $primary;
         &.fa-bars {
@@ -45,15 +44,6 @@
       display: flex;
       flex-grow: 1;
       cursor: pointer;
-    }
-    .dropdown {
-      a.trigger {
-        color: $text !important;
-      }
-      .is-dropdown {
-        top: 2.9em;
-      }
-
     }
     .q-left {
       display: flex;
@@ -81,6 +71,9 @@
         .o-handle {
           cursor: grab;
         }
+        .control.has-icons-right .input:focus ~ .icon {
+          color: #dbdbdb;
+        }
       }
     }
   }
@@ -94,7 +87,7 @@
     white-space: nowrap;
     overflow: hidden;
     .q-right {
-      border-right: 2px solid $white;
+      border-right: 1px solid $border;
     }
   }
   .q-icon {

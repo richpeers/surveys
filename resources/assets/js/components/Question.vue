@@ -18,9 +18,8 @@
                     <i class="fa fa-cog"></i>
                 </div>
                 <ul class="menu-list">
+                    <li><a @click="cloneQuestion">Clone</a></li>
                     <li><a @click="remove">Remove</a></li>
-                    <li><a>option 2</a></li>
-                    <li><a>option 3</a></li>
                 </ul>
             </dropdown>
 
@@ -60,12 +59,12 @@
 </template>
 
 <script>
+
+
     import AnswerOptions from './AnswerOptions.vue';
-    import BDropdown from "../../../../node_modules/buefy/src/components/dropdown/Dropdown";
 
     export default {
         components: {
-            BDropdown,
             AnswerOptions
         },
         props: {
@@ -128,12 +127,15 @@
             toggleBody () {
                 this.$store.dispatch('toggleBody', this.index);
             },
-            runMethod (value) {
-                this[value]();
+            cloneQuestion () {
+                this.$store.dispatch('cloneQuestion', this.index);
             },
             remove () {
                 this.$store.commit('removeQuestion', this.index);
             }
+        },
+        created () {
+
         }
     }
 </script>

@@ -1,3 +1,6 @@
+// survey
+export const getTitle = (state) => state.title;
+
 // questions
 export const getAvailableQuestions = (state) => state.AvailableQuestions;
 

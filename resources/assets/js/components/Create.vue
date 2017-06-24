@@ -7,6 +7,8 @@
         components: {
             Questions
         },
-        data: () => ({})
+        data: () => ({
+
+        })
     }
 </script>

@@ -18,8 +18,9 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('survey_id');
             $table->unsignedInteger('order');
             $table->unsignedInteger('type_id');
-            $table->string('question');
-            $table->string('description');
+            $table->string('title');
+            $table->string('description')->nullable();
+            $table->string('comment_placeholder')->nullable();
             $table->timestamps();
         });
     }

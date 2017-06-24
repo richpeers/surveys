@@ -19,3 +19,22 @@ export const toggleCanComment = ({dispatch, getters}, questionIndex, index) => {
     let answerOption = getters.getAnswerOption(questionIndex, index);
     return answerOption.showBody ? commmit('collapseAll') : dispatch('expand', index);
 };
+
+export const cloneQuestion = ({dispatch, getters, commit}, index) => {
+    let cloned = cloneDeep(getters.getQuestion([index]));
+    return dispatch('collapseAll').then(() => {
+        commit('cloneQuestion', {question: cloned, index: index + 1});
+    });
+};
+
+export const updateOrderValues = ({state, commit}) => {
+    for (let [questionIndex,] of state.NewSurveyQuestions.entries()) {
+        commit('updateQuestionOrder', questionIndex);
+        if ("options" in state.NewSurveyQuestions[questionIndex]) {
+            for (let [index,] of state.NewSurveyQuestions[questionIndex].options.entries()) {
+                commit('updateAnswerOrder', {questionIndex, index})
+            }
+        }
+
+    }
+};

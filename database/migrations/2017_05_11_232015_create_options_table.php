@@ -18,6 +18,7 @@ class CreateOptionsTable extends Migration
             $table->unsignedInteger('question_id');
             $table->unsignedInteger('order');
             $table->string('answer');
+            $table->boolean('canComment');
             $table->timestamps();
         });
     }

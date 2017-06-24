@@ -41,24 +41,28 @@ class CreateSurveyTest extends TestCase
                     [
                         'order' => 1,
                         'type_id' => 1,
-                        'question' => 'text only question',
+                        'title' => 'text only question',
                         'description' => 'description',
                         'required' => 1,
+                        'comment_placeholder' => 'comment placeholder'
                     ],
                     [
                         'order' => 2,
                         'type_id' => 2,
-                        'question' => 'multi answer question',
+                        'title' => 'multi answer question',
                         'description' => 'description',
                         'required' => 1,
+                        'comment_placeholder' => 'comment placeholder',
                         'options' => [
                             [
                                 'order' => 1,
                                 'answer' => 'option 1',
+                                'canComment' => false
                             ],
                             [
                                 'order' => 2,
                                 'answer' => 'option 2',
+                                'canComment' => true
                             ]
                         ],
                     ]
@@ -68,10 +72,10 @@ class CreateSurveyTest extends TestCase
         $survey = $user->surveys()->where('title', 'New Survey')->first();
         $this->assertNotNull($survey);
 
-        $textQuestion = $survey->questions()->where('question', 'text only question')->first();
+        $textQuestion = $survey->questions()->where('title', 'text only question')->first();
         $this->assertNotNull($textQuestion);
 
-        $multiAnswerQuestion = $survey->questions()->where('question', 'multi answer question')->first();
+        $multiAnswerQuestion = $survey->questions()->where('title', 'multi answer question')->first();
         $this->assertNotNull($multiAnswerQuestion);
 
         $option = $multiAnswerQuestion->options()->where('answer', 'option 1')->first();

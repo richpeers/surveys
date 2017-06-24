@@ -2,7 +2,8 @@
     <div class="dropdown">
         <div role="button"
              @click="isOpen = !isOpen"
-             ref="toggle">
+             ref="toggle"
+             class="toggle">
             <slot name="toggle"></slot>
         </div>
 

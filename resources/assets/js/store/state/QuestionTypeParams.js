@@ -3,7 +3,7 @@ const QuestionTypeParams = {
         type: "Welcome page",
         titleLabel: "Title",
         canBeRequired: false,
-        icon: "fa-smile-o",
+        icon: "fa-handshake-o",
         isMultiAnswer: false,
         canHavePlaceholder: false
     },

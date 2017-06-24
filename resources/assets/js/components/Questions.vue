@@ -18,6 +18,11 @@
                           :params="questionTypeParams[question.type_id]"
                 ></question>
             </draggable>
+            <div class="field">
+                <p class="control">
+                    <button @click="save" class="button is-primary">Save</button>
+                </p>
+            </div>
         </div>
 
         <div class="column">
@@ -39,7 +44,7 @@
 </template>
 
 <script>
-    import cloneDeep from 'lodash.clonedeep';
+
 
     import draggable from 'vuedraggable';
     import Question from './Question.vue';
@@ -51,7 +56,6 @@
             DragAvailable: {group: {name: 'survey', pull: 'clone', put: false}, sort: false},
             DragQuestion: {group: 'survey', animation: 150, handle: '.q-handle'},
             editTitle: false,
-            title: "New Survey"
         }),
         computed: {
             questions: {
@@ -70,11 +74,32 @@
             },
             questionsEmpty () {
                 return !this.questions.length;
+            },
+            title: {
+                get() {
+                    return this.$store.getters.getTitle;
+                },
+                set(value) {
+                    this.$store.commit('updateTitle', value)
+                }
             }
         },
         methods: {
             clone (el) {
                 return cloneDeep(el); // lodash.clonedeep 4.17.4
+            },
+            save () {
+                this.$store.dispatch('updateOrderValues');
+                axios.post('/surveys/store', {
+                    title: this.title,
+                    questions: this.questions
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }

@@ -37,18 +37,21 @@ class SurveyTest extends TestCase
         $survey->questions()->create([
             'order' => 1,
             'type_id' => 1,
-            'question' => 'dummy question',
+            'title' => 'dummy question',
             'description' => 'dummy description',
+            'comment_placeholder' => 'More info (optional)'
         ]);
+
+        $survey = $user->surveys()->where('title', 'New Survey')->first();
+        $this->assertNotNull($survey);
+
+        $textQuestion = $survey->questions()->where('title', 'dummy question')->first();
+        $this->assertNotNull($textQuestion);
     }
 
     /** @test */
     function user_can_create_a_multi_answer_question()
     {
-        $userId = factory(User::class)->create()->id;
-
-        $survey = new Survey;
-
         $user = factory(User::class)->create();
 
         $survey = $user->surveys()->create([
@@ -58,14 +61,24 @@ class SurveyTest extends TestCase
         $question = $survey->questions()->create([
             'order' => 1,
             'type_id' => 1,
-            'question' => 'dummy question',
+            'title' => 'dummy question',
             'description' => 'dummy description',
+            'comment_placeholder' => 'More info (optional)'
         ]);
 
         $question->options()->create([
             'order' => 1,
             'answer' => 'option 1',
+            'canComment' => false
         ]);
 
+        $survey = $user->surveys()->where('title', 'New Survey')->first();
+        $this->assertNotNull($survey);
+
+        $multiAnswerQuestion = $survey->questions()->where('title', 'dummy question')->first();
+        $this->assertNotNull($multiAnswerQuestion);
+
+        $option = $multiAnswerQuestion->options()->where('answer', 'option 1')->first();
+        $this->assertNotNull($option);
     }
 }

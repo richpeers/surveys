@@ -5,5 +5,6 @@ import QuestionTypeParams from './QuestionTypeParams';
 export default {
     AvailableQuestions,
     NewSurveyQuestions,
-    QuestionTypeParams
+    QuestionTypeParams,
+    title: 'New Survey'
 }

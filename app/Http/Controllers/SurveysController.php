@@ -46,8 +46,9 @@ class SurveysController extends Controller
             $question = $survey->questions()->create([
                 'order' => $q['order'],
                 'type_id' => $q['type_id'],
-                'question' => $q['question'],
+                'title' => $q['title'],
                 'description' => $q['description'],
+                'comment_placeholder' => $q['comment_placeholder']
             ]);
 
             // Add Options to Questions
@@ -57,14 +58,13 @@ class SurveysController extends Controller
                     $options[] = new Option([
                         'order' => $option['order'],
                         'answer' => $option['answer'],
+                        'canComment' => $option['canComment']
                     ]);
                 };
                 $question->options()->saveMany($options);
             }
-
         }
         return response()->json(['created' => true], 201);
-
     }
 
 

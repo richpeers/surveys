@@ -31,6 +31,8 @@ const store = new Vuex.Store({
     actions
 });
 
+window.cloneDeep = require('lodash/cloneDeep');
+
 import Dropdown from './components/Dropdown.vue';
 Vue.component('dropdown', Dropdown);
 
