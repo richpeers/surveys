@@ -20,7 +20,7 @@
 
                 <div slot="footer" class="field">
                     <p class="control">
-                        <button @click="save" class="button is-primary">Save</button>
+                        <button @click="save" class="button is-primary is-outlined" disabled>Save</button>
                     </p>
                 </div>
 
