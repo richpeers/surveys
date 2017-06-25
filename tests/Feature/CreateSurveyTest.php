@@ -16,17 +16,17 @@ class CreateSurveyTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
-            ->get('/surveys/create')
+            ->get('/')
             ->assertStatus(200)
             ->assertSee('New Survey');
     }
 
     /** @test */
-    function guest_can_not_visit_the_new_survey_form_page()
+    function guest_can_visit_the_new_survey_form_page()
     {
-        $this->get('/surveys/create')
-            ->assertStatus(302)
-            ->assertRedirect('/login');
+        $this->get('/')
+            ->assertStatus(200)
+            ->assertSee('New Survey');
     }
 
     /** @test */
@@ -81,4 +81,13 @@ class CreateSurveyTest extends TestCase
         $option = $multiAnswerQuestion->options()->where('answer', 'option 1')->first();
         $this->assertNotNull($option);
     }
+
+    /** @test */
+    function guest_cannot_store_a_new_survey()
+    {
+        $this->put('/surveys/store')
+            ->assertStatus(405);
+//            ->assertRedirect('/login');
+    }
+
 }

@@ -19,9 +19,9 @@ if (mix.inProduction()) {
         .version();
 } else {
     mix.browserSync({
-        proxy: 'surveys.dev/surveys/create', // with Valet
-        // proxy: 'localhost:8000/surveys/create', // with artisan serve
-        // proxy: ''surveys.app/surveys/create', // with homestead
-        browser: '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' // windows linux subsystem
+        proxy: 'surveys.dev', // with Valet
+        // proxy: 'localhost:8000', // with artisan serve
+        // proxy: ''surveys.app', // with homestead
+        // browser: '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' // windows linux subsystem
     });
 }

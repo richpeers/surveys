@@ -17,12 +17,15 @@
                           :question="question"
                           :params="questionTypeParams[question.type_id]"
                 ></question>
+
+                <div slot="footer" class="field">
+                    <p class="control">
+                        <button @click="save" class="button is-primary">Save</button>
+                    </p>
+                </div>
+
             </draggable>
-            <div class="field">
-                <p class="control">
-                    <button @click="save" class="button is-primary">Save</button>
-                </p>
-            </div>
+
         </div>
 
         <div class="column">
