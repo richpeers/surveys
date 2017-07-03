@@ -46,6 +46,7 @@
                 required: true
             }
         },
+
         computed: {
             answer: {
                 get() {

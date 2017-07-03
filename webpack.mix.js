@@ -22,6 +22,6 @@ if (mix.inProduction()) {
         proxy: 'surveys.dev', // with Valet
         // proxy: 'localhost:8000', // with artisan serve
         // proxy: ''surveys.app', // with homestead
-        // browser: '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' // windows linux subsystem
+        browser: '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' // windows linux subsystem
     });
 }

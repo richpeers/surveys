@@ -93,6 +93,7 @@
             },
             save () {
                 this.$store.dispatch('updateOrderValues');
+
                 axios.post('/surveys/store', {
                     title: this.title,
                     questions: this.questions
