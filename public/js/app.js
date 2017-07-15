@@ -17090,7 +17090,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a, Question: __WEBPACK_IMPORTED_MODULE_1__Question_vue___default.a, Available: __WEBPACK_IMPORTED_MODULE_2__Available_vue___default.a },
     data: function data() {
@@ -19600,12 +19599,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "field",
     slot: "footer"
   }, [_c('p', {
-    staticClass: "control"
+    staticClass: "control has-text-right"
   }, [_c('button', {
     staticClass: "button is-primary is-outlined",
-    attrs: {
-      "disabled": ""
-    },
     on: {
       "click": _vm.save
     }

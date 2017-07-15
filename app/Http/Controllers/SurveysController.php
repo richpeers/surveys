@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Survey;
+use App\Http\Requests\StoreSurvey;
 use App\Option;
 use Illuminate\Http\Request;
+use Validator;
 
 class SurveysController extends Controller
 {
@@ -31,10 +33,10 @@ class SurveysController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Http\Requests\StoreSurvey $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSurvey $request)
     {
         // Create Survey
         $survey = $request->user()->surveys()->create([

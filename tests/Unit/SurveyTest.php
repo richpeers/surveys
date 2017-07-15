@@ -3,46 +3,49 @@
 namespace Tests\Unit;
 
 use App\User;
-use App\Survey;
+use App\Question;
+use App\Option;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SurveyTest extends TestCase
 {
     use DatabaseMigrations;
 
+    private $user;
+    private $longString;
+
+    function setUp()
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+        $this->longString = str_repeat('a', 256);
+    }
+
+    private function storeJSON($data)
+    {
+        return $this->actingAs($this->user)->json('POST', '/surveys/store', $data);
+    }
+
     /** @test */
     function user_can_create_a_survey()
     {
-        $user = factory(User::class)->create();
+        $this->user->surveys()->create(['title' => 'New Survey']);
 
-        $user->surveys()->create([
-            'title' => 'New Survey',
-        ]);
-
-        $survey = $user->surveys()->where('title', 'New Survey')->first();
+        $survey = $this->user->surveys()->where('title', 'New Survey')->first();
         $this->assertNotNull($survey);
     }
 
     /** @test */
     function user_can_create_a_text_question()
     {
-        $user = factory(User::class)->create();
+        $this->user->surveys()
+            ->create(['title' => 'New Survey'])
+            ->each(function ($s) {
+                $s->questions()->save(factory(Question::class)->make(['title' => 'dummy question']));
+            });
 
-        $survey = $user->surveys()->create([
-            'title' => 'New Survey',
-        ]);
-
-        $survey->questions()->create([
-            'order' => 1,
-            'type_id' => 1,
-            'title' => 'dummy question',
-            'description' => 'dummy description',
-            'comment_placeholder' => 'More info (optional)'
-        ]);
-
-        $survey = $user->surveys()->where('title', 'New Survey')->first();
+        $survey = $this->user->surveys()->where('title', 'New Survey')->first();
         $this->assertNotNull($survey);
 
         $textQuestion = $survey->questions()->where('title', 'dummy question')->first();
@@ -52,27 +55,16 @@ class SurveyTest extends TestCase
     /** @test */
     function user_can_create_a_multi_answer_question()
     {
-        $user = factory(User::class)->create();
+        $this->user->surveys()
+            ->create(['title' => 'New Survey'])
+            ->each(function ($s) {
+                $s->questions()->save(factory(Question::class)->make(['title' => 'dummy question']))
+                    ->each(function ($q) {
+                        $q->options()->save(factory(Option::class)->make(['answer' => 'option 1']));
+                    });
+            });
 
-        $survey = $user->surveys()->create([
-            'title' => 'New Survey',
-        ]);
-
-        $question = $survey->questions()->create([
-            'order' => 1,
-            'type_id' => 1,
-            'title' => 'dummy question',
-            'description' => 'dummy description',
-            'comment_placeholder' => 'More info (optional)'
-        ]);
-
-        $question->options()->create([
-            'order' => 1,
-            'answer' => 'option 1',
-            'canComment' => false
-        ]);
-
-        $survey = $user->surveys()->where('title', 'New Survey')->first();
+        $survey = $this->user->surveys()->where('title', 'New Survey')->first();
         $this->assertNotNull($survey);
 
         $multiAnswerQuestion = $survey->questions()->where('title', 'dummy question')->first();
@@ -81,4 +73,5 @@ class SurveyTest extends TestCase
         $option = $multiAnswerQuestion->options()->where('answer', 'option 1')->first();
         $this->assertNotNull($option);
     }
+
 }

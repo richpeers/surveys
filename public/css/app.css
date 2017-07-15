@@ -7852,6 +7852,11 @@ label.panel-block:hover {
   color: #428bca;
 }
 
+#questions .field .control.has-text-right {
+  text-align: right;
+  margin: 0.5em 1.5em 0 0;
+}
+
 #questions.obvious-drop-area {
   height: 30.5em;
   border: 2px dashed #dbdbdb;

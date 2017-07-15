@@ -23,28 +23,28 @@
 
         <div id="nav-menu" class="nav-right nav-menu" :class="{'is-active' : navIsActive}">
 
-            {{--<div class="nav-item">--}}
-                {{--<div class="field is-grouped">--}}
-                    {{--@if (Auth::guest())--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('login') }}">Login</a>--}}
-                        {{--</p>--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('register') }}">Register</a>--}}
-                        {{--</p>--}}
-                    {{--@else--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('logout') }}"--}}
-                               {{--onclick="event.preventDefault();--}}
-                           {{--document.getElementById('logout-form').submit();"--}}
-                            {{-->Logout</a>--}}
-                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                            {{--{{ csrf_field() }}--}}
-                        {{--</form>--}}
-                        {{--</p>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-            {{--</div>--}}
+            <div class="nav-item">
+                <div class="field is-grouped">
+                    @if (Auth::guest())
+                        <p class="control">
+                            <a class="button" href="{{ route('login') }}">Login</a>
+                        </p>
+                        <p class="control">
+                            <a class="button" href="{{ route('register') }}">Register</a>
+                        </p>
+                    @else
+                        <p class="control">
+                            <a class="button" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();"
+                            >Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                        </p>
+                    @endif
+                </div>
+            </div>
         </div>
     </nav>
 </div>

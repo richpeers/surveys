@@ -19,8 +19,8 @@
                 ></question>
 
                 <div slot="footer" class="field">
-                    <p class="control">
-                        <button @click="save" class="button is-primary is-outlined" disabled>Save</button>
+                    <p class="control has-text-right">
+                        <button @click="save" class="button is-primary is-outlined">Save</button>
                     </p>
                 </div>
 
@@ -47,8 +47,6 @@
 </template>
 
 <script>
-
-
     import draggable from 'vuedraggable';
     import Question from './Question.vue';
     import Available from './Available.vue';
