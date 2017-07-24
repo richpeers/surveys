@@ -6,8 +6,9 @@
                 <answer-option v-for="(option, index) in options" :key="index"
                                :question-index="questionIndex"
                                :index="index"
-                               :option="option">
-                </answer-option>
+                               :option="option"
+                               :$v="$v.$each[index]"
+                ></answer-option>
             </draggable>
         </div>
 
@@ -35,10 +36,8 @@
         name: 'answer-options',
         components: {draggable, AnswerOption},
         props: {
-            questionIndex: {
-                type: Number,
-                required: true
-            }
+            questionIndex: {type: Number, required: true},
+            $v: {type: Object, required: true}
         },
         data: () => ({
             dragOptions: {name: 'options', animation: 150, handle: '.o-handle'}
@@ -64,7 +63,7 @@
                     })
                 }
             },
-            canCommentOnOption () {
+            canCommentOnOption() {
                 for (let option of this.options) {
                     if (option.canComment === true) {
                         return true;
@@ -74,7 +73,7 @@
             }
         },
         methods: {
-            addAnswer () {
+            addAnswer() {
                 this.$store.commit('addAnswerOption', this.questionIndex);
             }
         }

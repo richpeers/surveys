@@ -41,7 +41,10 @@
                 </p>
             </div>
 
-            <answer-options v-if="isMultiAnswer" :questionIndex="index"></answer-options>
+            <answer-options v-if="isMultiAnswer"
+                            :questionIndex="index"
+                            :$v="$v.options"
+            ></answer-options>
 
             <div v-if="canBeRequired" class="field">
                 <p class="control">
@@ -70,7 +73,8 @@
         props: {
             index: {type: Number, required: true},
             question: {type: Object, required: true},
-            params: {type: Object, required: true}
+            params: {type: Object, required: true},
+            $v: {type: Object, required: true},
         },
         computed: {
             type () {
@@ -117,7 +121,6 @@
                 set(value) {
                     this.update('required', value);
                 }
-
             }
         },
         methods: {
@@ -127,15 +130,13 @@
             toggleBody () {
                 this.$store.dispatch('toggleBody', this.index);
             },
+
             cloneQuestion () {
                 this.$store.dispatch('cloneQuestion', this.index);
             },
             remove () {
                 this.$store.commit('removeQuestion', this.index);
             }
-        },
-        created () {
-
         }
     }
 </script>

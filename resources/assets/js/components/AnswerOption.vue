@@ -33,18 +33,10 @@
     export default {
         name: 'answer-option',
         props: {
-            index: {
-                type: Number,
-                required: true
-            },
-            questionIndex: {
-                type: Number,
-                required: true
-            },
-            option: {
-                type: Object,
-                required: true
-            }
+            index: {type: Number, required: true},
+            questionIndex: {type: Number, required: true},
+            option: {type: Object, required: true},
+            $v: {type: Object, required: true},
         },
 
         computed: {
@@ -64,7 +56,7 @@
             }
         },
         methods: {
-            update (property, value) {
+            update(property, value) {
                 this.$store.commit('updateAnswerOptionProperty', {
                     questionIndex: this.questionIndex,
                     index: this.index,
@@ -72,10 +64,10 @@
                     value
                 });
             },
-            toggleCanComment () {
+            toggleCanComment() {
                 this.update('canComment', !this.canComment);
             },
-            remove () {
+            remove() {
                 this.$store.commit('removeAnswerOption', {
                     questionIndex: this.questionIndex,
                     index: this.index

@@ -6388,6 +6388,10 @@ vuedraggable@^2.14.0:
   dependencies:
     sortablejs "^1.6.0"
 
+vuelidate@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.5.0.tgz#c315659a023e760d0fb11b6b42b6c3cdf08306c3"
+
 vuex@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.3.1.tgz#cde8e997c1f9957719bc7dea154f9aa691d981a6"

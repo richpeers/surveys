@@ -6,5 +6,8 @@ export default {
     AvailableQuestions,
     NewSurveyQuestions,
     QuestionTypeParams,
-    title: 'New Survey'
+    title: 'New Survey',
+    validation: {
+        NewSurvey: []
+    }
 }

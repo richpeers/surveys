@@ -38,3 +38,20 @@ export const updateOrderValues = ({state, commit}) => {
 
     }
 };
+
+export const saveNewSurvey = ({dispatch, commit}, payload) => {
+    dispatch('updateOrderValues')
+        .then(function () {
+            axios.post('/surveys/store', payload)
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    commit('updateValidation', {
+                        form: 'NewSurvey',
+                        errors: error.response.data,
+                    })
+                });
+        });
+};

@@ -5,6 +5,7 @@ const NewSurveyQuestions = [
         showBody: false,
         title: "What question do you want to ask?",
         description: "",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -14,6 +15,7 @@ const NewSurveyQuestions = [
         showBody: false,
         title: "Thank you!",
         description: "Your feedback is very important to us.",
+        options: [],
         required: false,
         comment_placeholder: ""
     }

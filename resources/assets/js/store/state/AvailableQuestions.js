@@ -5,6 +5,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "Tell us what you think!",
         description: "Please take a moment to fill out this short survey to let us know how we did and where we can improve.",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -80,6 +81,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "What question do you want to ask?",
         description: "",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -89,6 +91,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "What question do you want to ask?",
         description: "",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -98,6 +101,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "Enter your email",
         description: "",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -107,6 +111,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "How would you rate us?",
         description: "",
+        options: [],
         required: false,
         comment_placeholder: ""
     },
@@ -116,6 +121,7 @@ const AvailableQuestions = [
         showBody: false,
         title: "Thank you!",
         description: "Your feedback is very important to us.",
+        options: [],
         required: false,
         comment_placeholder: ""
     }

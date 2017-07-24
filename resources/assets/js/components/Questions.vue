@@ -16,6 +16,7 @@
                           :index="index"
                           :question="question"
                           :params="questionTypeParams[question.type_id]"
+                          :$v="$v.questions.$each[index]"
                 ></question>
 
                 <div slot="footer" class="field">
@@ -51,6 +52,8 @@
     import Question from './Question.vue';
     import Available from './Available.vue';
 
+    import {required, numeric, maxLength, between, requiredIf} from 'vuelidate/lib/validators'
+
     export default {
         components: {draggable, Question, Available},
         data: () => ({
@@ -67,13 +70,13 @@
                     this.$store.commit('updateQuestions', value);
                 }
             },
-            questionTypeParams () {
+            questionTypeParams() {
                 return this.$store.getters.getQuestionTypeParams;
             },
-            available () {
+            available() {
                 return this.$store.getters.getAvailableQuestions;
             },
-            questionsEmpty () {
+            questionsEmpty() {
                 return !this.questions.length;
             },
             title: {
@@ -85,23 +88,46 @@
                 }
             }
         },
-        methods: {
-            clone (el) {
-                return cloneDeep(el); // lodash.clonedeep 4.17.4
+        validations: {
+            title: {
+                required,
+                maxLength: maxLength(255),
             },
-            save () {
-                this.$store.dispatch('updateOrderValues');
-
-                axios.post('/surveys/store', {
+            questions: {
+                required,
+                $each: {
+                    title: {
+                        required,
+                        maxLength: maxLength(255),
+                    },
+                    description: {
+                        maxLength: maxLength(255),
+                    },
+                    options: {
+                        requiredIf: requiredIf((key) => {
+                            return key.type_id === 2 || key.type_id === 3 || key.type_id === 4
+                        }),
+                        $each: {
+                            answer: {
+                                required,
+                                maxLength: maxLength(255),
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        ,
+        methods: {
+            clone(el) {
+                return cloneDeep(el); // lodash.clonedeep 4.17.4
+            }
+            ,
+            save() {
+                this.$store.dispatch('saveNewSurvey', {
                     title: this.title,
                     questions: this.questions
-                })
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                });
             }
         }
     }

@@ -16,6 +16,9 @@ import Vue from 'vue';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
+
 import Vuex from 'vuex';
 Vue.use(Vuex);
 

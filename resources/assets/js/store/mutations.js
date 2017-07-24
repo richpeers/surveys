@@ -47,3 +47,7 @@ export const addAnswerOption = (state, questionIndex) => {
 export const updateAnswerOrder = (state, {questionIndex, index}) => {
     state.NewSurveyQuestions[questionIndex].options[index].order = Number(index) + 1;
 };
+
+export const updateValidation = (state, {form, errors}) => {
+    state.validation[form] = errors;
+};
