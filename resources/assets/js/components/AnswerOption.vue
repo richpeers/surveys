@@ -8,7 +8,7 @@
         </p>
 
         <p class="control is-expanded has-icons-right">
-            <input class="input" v-model="answer">
+            <input class="input" v-model="answer" :class="{'is-danger': $v.$invalid}">
             <span v-if="canComment" class="icon is-small is-right">
                 <i class="fa fa-comment-o"></i>
             </span>
@@ -25,8 +25,9 @@
                 <li><a @click="remove">Remove</a></li>
             </ul>
         </dropdown>
-
+        <!--<p class="help is-danger" v-if="!$v.answer.required">This Field is required</p>-->
     </div>
+
 </template>
 
 <script>

@@ -24,16 +24,16 @@ class StoreSurvey extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
+            'title' => 'required|max:140',
             'questions' => 'array|min:1',
             'questions.*.order' => 'required|integer|min:1',
             'questions.*.type_id' => 'required|integer|between:1,9',
-            'questions.*.title' => 'required|max:255',
+            'questions.*.title' => 'required|max:140',
             'questions.*.description' => 'present|max:255',
             'questions.*.required' => 'required|boolean',
-            'questions.*.options' => 'required_if:questions.*.type_id,2|required_if:questions.*.type_id,3required_if:questions.*.type_id,4|array|min:1',
+            'questions.*.options' => 'required_if:questions.*.type_id,2|required_if:questions.*.type_id,3required_if:questions.*.type_id,4',
             'questions.*.options.*.order' => 'required|integer|min:1',
-            'questions.*.options.*.answer' => 'required|max:255',
+            'questions.*.options.*.answer' => 'required|max:140',
             'questions.*.options.*.canComment' => 'required|boolean'
         ];
     }

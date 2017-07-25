@@ -1,7 +1,7 @@
 <template>
     <div class="question">
 
-        <div class="q-head">
+        <div class="q-head val" :class="{'is-danger': $v.$invalid}">
             <div class="q-handle">
                 <i class="fa" v-bind:class="showBody ? icon + ' fa-lg' : 'fa-bars'"></i>
             </div>
@@ -28,10 +28,13 @@
         <div class="q-body" v-show="showBody" :class="{expanded: showBody}">
 
             <div class="field">
-                <p class="control">
+                <span class="control">
                     <label :for="'title-' + index" class="label">{{titleLabel}}</label>
-                    <input :id="'title-' + index" class="input" type="text" v-model="title">
-                </p>
+                    <textarea :id="'title-' + index" class="textarea val" v-model="title"
+                              :class="{'is-danger': $v.title.$invalid}" rows="2" maxlength="140"></textarea>
+                </span>
+                <p class="help is-danger" v-if="!$v.title.required">This Field is required</p>
+
             </div>
 
             <div class="field">

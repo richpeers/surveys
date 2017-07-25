@@ -1,10 +1,11 @@
 // Color
 $orange: #D56100;
-$yellow: #D58E00;
+$yellow: #f0ad4e;
 $green: #5cb85c;
 $turquoise: #008080;
-$blue: #428bca;
+$blue: darken(#428bca, 6.5%);
 $purple: #800080;
-$red: #800000;
+$red: #d9534f;
 
 $primary: $blue;
+$warning: $yellow;

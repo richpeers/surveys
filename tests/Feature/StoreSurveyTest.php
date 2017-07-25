@@ -105,7 +105,7 @@ class StoreSurveyTest extends TestCase
             'title' => $this->longString
         ])
             ->assertStatus(422)
-            ->assertJson(['title' => ['The title may not be greater than 255 characters.']]);
+            ->assertJson(['title' => ['The title may not be greater than 140 characters.']]);
     }
 
     /** @test */
@@ -373,7 +373,7 @@ class StoreSurveyTest extends TestCase
             ]
         ])
             ->assertStatus(422)
-            ->assertJson(['questions.0.options.0.answer' => ['The questions.0.options.0.answer may not be greater than 255 characters.']]);
+            ->assertJson(['questions.0.options.0.answer' => ['The questions.0.options.0.answer may not be greater than 140 characters.']]);
     }
 
     /** @test */

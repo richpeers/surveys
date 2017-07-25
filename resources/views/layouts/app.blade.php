@@ -8,6 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="login-status" content="{{ Auth::check() }}">
+
     <title>{{ config('app.name', 'Laravel') }} - @yield('pageTitle')</title>
 
     <!-- Styles -->

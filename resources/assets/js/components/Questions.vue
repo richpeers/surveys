@@ -4,7 +4,9 @@
         <div class="column">
             <div class="field title-edit">
                 <p class="control has-icons-right">
-                    <input class="input" type="text" v-model="title" autofocus/>
+                    <input class="input val" type="text" v-model="title"
+                           placeholder="Enter survey name"
+                           :class="{'is-danger': !$v.title.required}" autofocus />
                     <span class="icon is-right"> <i class="fa fa-pencil-square-o"></i></span>
                 </p>
             </div>
@@ -18,15 +20,18 @@
                           :params="questionTypeParams[question.type_id]"
                           :$v="$v.questions.$each[index]"
                 ></question>
-
-                <div slot="footer" class="field">
-                    <p class="control has-text-right">
-                        <button @click="save" class="button is-primary is-outlined">Save</button>
-                    </p>
-                </div>
-
             </draggable>
-
+            <div class="field">
+                <p class="control has-text-right">
+                    <span v-if="!isLoggedIn">
+                        <button href="#" class="button is-link" disabled>Find out more..</button>
+                        <button href="/register" class="button is-primary" disabled>Register</button>
+                        <button class="button is-danger is-outlined" disabled>Save</button>
+                    </span>
+                    <button v-else @click="save" class="button is-danger is-outlined" :disabled="$v.$invalid">Save
+                    </button>
+                </p>
+            </div>
         </div>
 
         <div class="column">
@@ -62,6 +67,9 @@
             editTitle: false,
         }),
         computed: {
+            isLoggedIn() {
+                return isLoggedIn;
+            },
             questions: {
                 get() {
                     return this.$store.getters.getQuestions
@@ -91,14 +99,14 @@
         validations: {
             title: {
                 required,
-                maxLength: maxLength(255),
+                maxLength: maxLength(140),
             },
             questions: {
                 required,
                 $each: {
                     title: {
                         required,
-                        maxLength: maxLength(255),
+                        maxLength: maxLength(140),
                     },
                     description: {
                         maxLength: maxLength(255),
@@ -110,19 +118,17 @@
                         $each: {
                             answer: {
                                 required,
-                                maxLength: maxLength(255),
+                                maxLength: maxLength(140),
                             }
                         }
                     }
                 }
             }
-        }
-        ,
+        },
         methods: {
             clone(el) {
                 return cloneDeep(el); // lodash.clonedeep 4.17.4
-            }
-            ,
+            },
             save() {
                 this.$store.dispatch('saveNewSurvey', {
                     title: this.title,

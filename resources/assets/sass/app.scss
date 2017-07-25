@@ -4,6 +4,7 @@
 @import "theme-variables.scss";
 @import "./node_modules/bulma/bulma";
 @import "/components/dropdown";
+@import "/components/tooltip";
 
 [v-cloak] {
   display: none;
@@ -15,7 +16,6 @@
 
 .question {
   padding-bottom: 0.75rem;
-
   .q-head {
     margin-right: 1.5em;
     display: flex;
@@ -24,6 +24,7 @@
     background-color: $white-ter;
     border: 1px solid $border;
     border-radius: 3px;
+
     .q-handle {
       display: flex;
       flex-grow: 0;
@@ -66,6 +67,9 @@
     .label {
       font-weight: normal;
     }
+    .textarea.question {
+      min-height: 4.5em;
+    }
     #answer-options {
       .option {
         .o-handle {
@@ -80,7 +84,7 @@
 }
 
 #questions {
-  min-height: 30.5em;
+  min-height: 7.5em;
 
   .q-title {
     padding-left: 1em;
@@ -93,10 +97,12 @@
   .q-icon {
     color: $primary;
   }
-  .field .control.has-text-right {
-    text-align: right;
-    margin: 0.5em 1.5em 0 0;
-  }
+
+}
+
+.field .control.has-text-right {
+  text-align: right;
+  margin: 0.5em 1.5em 0 0;
 }
 
 #questions.obvious-drop-area {
@@ -135,7 +141,6 @@
       padding-left: 0 !important;
       span {
         display: flex;
-
         height: 2.75em;
         align-items: center;
       }
@@ -193,4 +198,11 @@
   padding-right: calc(0.6em - 1px);
   padding-top: calc(0.3em - 1px);
   margin-bottom: 0.5em !important;
+}
+
+.val.is-danger {
+  border-color: $red !important;
+  &:hover, &:active, &:focus {
+
+  }
 }

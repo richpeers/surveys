@@ -17,9 +17,11 @@ import Vue from 'vue';
  */
 
 import Vuelidate from 'vuelidate';
+
 Vue.use(Vuelidate);
 
 import Vuex from 'vuex';
+
 Vue.use(Vuex);
 
 import state from './store/state';
@@ -36,7 +38,10 @@ const store = new Vuex.Store({
 
 window.cloneDeep = require('lodash/cloneDeep');
 
+window.isLoggedIn = document.querySelector('meta[name=login-status]').getAttribute("content");
+
 import Dropdown from './components/Dropdown.vue';
+
 Vue.component('dropdown', Dropdown);
 
 import Create from './components/Create.vue';
