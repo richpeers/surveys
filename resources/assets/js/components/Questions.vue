@@ -21,17 +21,19 @@
                           :$v="$v.questions.$each[index]"
                 ></question>
             </draggable>
+
             <div class="field">
                 <p class="control has-text-right">
                     <span v-if="!isLoggedIn">
-                        <button href="#" class="button is-link" disabled>Find out more..</button>
-                        <button href="/register" class="button is-primary" disabled>Register</button>
+                        <a href="#" class="button is-primary is-inverted">Find out more..</a>
+                        <a href="/register" class="button is-primary">Register</a>
                         <button class="button is-danger is-outlined" disabled>Save</button>
                     </span>
-                    <button v-else @click="save" class="button is-danger is-outlined" :disabled="$v.$invalid">Save
+                    <button v-else @click="save" class="button is-primary is-outlined" :disabled="$v.$invalid">Save
                     </button>
                 </p>
             </div>
+
         </div>
 
         <div class="column">

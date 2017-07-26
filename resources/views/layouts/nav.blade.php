@@ -1,50 +1,65 @@
 <div class="container">
-    <nav class="nav">
-        <div class="nav-left">
-            <a class="nav-item is-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+    <nav class="navbar">
+
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{{ url('/') }}">Surveys</a>
+
+            <a class="navbar-item" href="https://github.com/richpeers/surveys" target="_blank">
+                <span class="icon" style="color: #333;"><i class="fa fa-github"></i></span>
             </a>
+            <a class="navbar-item" href="https://twitter.com/richpeers" target="_blank">
+                <span class="icon" style="color: #55acee;"><i class="fa fa-twitter"></i></span>
+            </a>
+
+            <div class="navbar-burger" :class="{ 'is-active': navIsActive }" @click="navIsActive = !navIsActive"
+                 data-target="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
         </div>
 
-        <div class="nav-center">
-            <a class="nav-item" href="https://github.com/richpeers/surveys" target="_blank">
-                <span class="icon"><i class="fa fa-github"></i></span>
-            </a>
-            <a class="nav-item" href="https://twitter.com/richpeers" target="_blank">
-                <span class="icon"> <i class="fa fa-twitter"></i></span>
-            </a>
-        </div>
+        <div id="navMenu" class="navbar-menu" :class="{ 'is-active': navIsActive }">
 
-        <span id="nav-toggle" class="nav-toggle"
-              @click="navIsActive = !navIsActive"
-              :class="{'is-active' :  navIsActive}">
-            <span></span><span></span><span></span>
-        </span>
+            <div class="navbar-end">
 
-        <div id="nav-menu" class="nav-right nav-menu" :class="{'is-active' : navIsActive}">
+                @if (Auth::guest())
+                    <div class="nav-item">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <a class="button is-primary is-inverted" href="{{ route('login') }}">Login</a>
+                            </p>
+                            <p class="control">
+                                <a class="button is-primary" href="{{ route('register') }}">Register</a>
+                            </p>
+                        </div>
+                    </div>
+                @else
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link is-active" href="#">
+                            {{ Auth::user()->name }}
+                        </a>
 
-            {{--<div class="nav-item">--}}
-                {{--<div class="field is-grouped">--}}
-                    {{--@if (Auth::guest())--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('login') }}">Login</a>--}}
-                        {{--</p>--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('register') }}">Register</a>--}}
-                        {{--</p>--}}
-                    {{--@else--}}
-                        {{--<p class="control">--}}
-                            {{--<a class="button" href="{{ route('logout') }}"--}}
-                               {{--onclick="event.preventDefault();--}}
-                           {{--document.getElementById('logout-form').submit();"--}}
-                            {{-->Logout</a>--}}
-                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                            {{--{{ csrf_field() }}--}}
-                        {{--</form>--}}
-                        {{--</p>--}}
-                    {{--@endif--}}
-                {{--</div>--}}
-            {{--</div>--}}
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="#">Account</a>
+
+                            <a class="navbar-item" href="#">My Surveys</a>
+
+                            <hr class="navbar-divider">
+
+                            <a class="navbar-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            >Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+
+                    </div>
+                @endif
+            </div>
+
         </div>
     </nav>
 </div>
