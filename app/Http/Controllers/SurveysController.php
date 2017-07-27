@@ -50,6 +50,7 @@ class SurveysController extends Controller
                 'type_id' => $q['type_id'],
                 'title' => $q['title'],
                 'description' => $q['description'],
+                'required' => $q['required'],
                 'comment_placeholder' => $q['comment_placeholder']
             ]);
 

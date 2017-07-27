@@ -20,7 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('type_id');
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('comment_placeholder')->nullable();
+            $table->boolean('required');
+            $table->string('comment_placeholder');
             $table->timestamps();
         });
     }
