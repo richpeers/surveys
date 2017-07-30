@@ -44,7 +44,8 @@ export const saveNewSurvey = ({dispatch, commit}, payload) => {
         .then(function () {
             axios.post('/surveys/store', payload)
                 .then(function (response) {
-                    console.log(response);
+                    console.log(response.data);
+                    window.location = response.data.redirect;
                 })
                 .catch(function (error) {
                     console.log(error.response.data);

@@ -24,6 +24,8 @@
 
             <div class="navbar-end">
 
+                <a class="navbar-item" href="{{url('/')}}">New Survey</a>
+
                 @if (Auth::guest())
                     <div class="nav-item">
                         <div class="field is-grouped">
@@ -44,7 +46,7 @@
                         <div class="navbar-dropdown">
                             <a class="navbar-item" href="#">Account</a>
 
-                            <a class="navbar-item" href="#">My Surveys</a>
+                            <a class="navbar-item" href="{{ url('/surveys') }}">My Surveys</a>
 
                             <hr class="navbar-divider">
 

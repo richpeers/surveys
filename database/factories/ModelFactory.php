@@ -23,13 +23,20 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Survey::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence(3),
+    ];
+});
+
 $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
-        'order' => 1,
-        'type_id' => 1,
-        'title' => 'dummy question',
-        'description' => 'dummy description',
-        'comment_placeholder' => 'More info (optional)'
+        'order' => $faker->unique()->numberBetween(1, 12),
+        'type_id' => $faker->numberBetween(1, 9),
+        'title' => $faker->sentence(4),
+        'description' => $faker->paragraph(3),
+        'required' => $faker->numberBetween(0, 1),
+        'comment_placeholder' => $faker->sentence(2)
     ];
 });
 

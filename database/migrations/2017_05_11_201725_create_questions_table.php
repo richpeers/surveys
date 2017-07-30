@@ -21,7 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->boolean('required');
-            $table->string('comment_placeholder');
+            $table->string('comment_placeholder')->nullable();
             $table->timestamps();
         });
     }

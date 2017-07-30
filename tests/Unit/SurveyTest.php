@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use App\Survey;
 use App\Question;
 use App\Option;
 use Tests\TestCase;
@@ -73,5 +74,19 @@ class SurveyTest extends TestCase
         $option = $multiAnswerQuestion->options()->where('answer', 'option 1')->first();
         $this->assertNotNull($option);
     }
+
+    /** @test */
+        function user_can_retrieve_list_of_their_own_surveys()
+        {
+            factory(Survey::class, 3)->create([
+                'user_id' => $this->user->id,
+                'title' => 'Dummy Title',
+            ]);
+
+            $surveys = $this->user->surveys()->where('title', 'Dummy Title')->first();
+
+            $this->assertNotNull($surveys);
+
+        }
 
 }

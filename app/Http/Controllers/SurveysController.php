@@ -8,16 +8,22 @@ use App\Option;
 use Illuminate\Http\Request;
 use Validator;
 
+/**
+ * Class SurveysController
+ * @package App\Http\Controllers
+ */
 class SurveysController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $surveys = $request->user()->surveys()->get();
+        return view('surveys.index', compact('surveys'));
     }
 
     /**
@@ -67,7 +73,10 @@ class SurveysController extends Controller
                 $question->options()->saveMany($options);
             }
         }
-        return response()->json(['created' => true], 201);
+        return response()->json([
+            'created' => true,
+            'redirect' => route('surveys'),
+        ], 201);
     }
 
 

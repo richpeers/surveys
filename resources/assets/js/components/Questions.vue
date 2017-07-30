@@ -6,7 +6,7 @@
                 <p class="control has-icons-right">
                     <input class="input val" type="text" v-model="title"
                            placeholder="Enter survey name"
-                           :class="{'is-danger': !$v.title.required}" autofocus />
+                           :class="{'is-danger': !$v.title.required}" autofocus/>
                     <span class="icon is-right"> <i class="fa fa-pencil-square-o"></i></span>
                 </p>
             </div>
