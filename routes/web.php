@@ -17,4 +17,4 @@ Route::get('/', 'SurveysController@create');
 Route::post('/surveys/store', 'SurveysController@store')->middleware('auth');
 Route::get('/surveys', 'SurveysController@index')->name('surveys')->middleware('auth');
 Route::get('/surveys/{id}/edit', 'SurveysController@edit')->middleware('auth');
-Route::put('/surveys/{id}', 'surveysController@update')->middleware('auth');
+Route::put('/surveys/{id}', 'SurveysController@update')->middleware('auth');
