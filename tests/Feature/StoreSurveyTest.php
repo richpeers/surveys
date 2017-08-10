@@ -83,15 +83,15 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function guest_cannot_store_a_new_survey()
     {
-        $this->put('/surveys/store')
-            ->assertStatus(405);
+        $this->withExceptionHandling()->json( 'PUT', '/surveys/store')
+            ->assertStatus(401);
 //            ->assertRedirect('/login');
     }
 
     /** @test */
     function survey_title_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'title' => ''
         ])
             ->assertStatus(422)
@@ -101,7 +101,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function survey_title_length_max_255()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'title' => $this->longString
         ])
             ->assertStatus(422)
@@ -111,7 +111,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function at_least_one_question_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => []
         ])
             ->assertStatus(422)
@@ -141,7 +141,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_description_length_max_255()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'title' => 'New Survey',
             'questions' => [
                 [
@@ -156,7 +156,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_order_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'order' => ''
@@ -170,7 +170,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_order_must_be_an_integer()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'order' => 'a'
@@ -184,7 +184,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_order_must_be_min_1()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'order' => '0'
@@ -198,7 +198,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_type_id_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => ''
@@ -213,7 +213,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_type_id_must_be_an_integer()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 'a'
@@ -227,7 +227,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_type_id_must_be_between_1_and_9()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 0
@@ -241,7 +241,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_required_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'title' => 'title'
@@ -255,7 +255,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_required_is_boolean()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'required' => 2
@@ -269,7 +269,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_options_required_if_type_id_is_2_3_or_4()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2
@@ -284,7 +284,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_order_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -303,7 +303,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_order_must_be_an_integer()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -322,7 +322,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_order_must_be_unsigned()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -341,7 +341,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_options_answer_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -360,7 +360,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_answer_is_max_255_chars()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -379,7 +379,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_can_comment_is_required()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,
@@ -398,7 +398,7 @@ class StoreSurveyTest extends TestCase
     /** @test */
     function question_option_can_comment_must_be_boolean()
     {
-        $this->storeJSON([
+        $this->withExceptionHandling()->storeJSON([
             'questions' => [
                 [
                     'type_id' => 2,

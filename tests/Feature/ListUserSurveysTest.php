@@ -38,7 +38,7 @@ class ListUserSurveysTest extends TestCase
     /** @test */
     function guest_can_not_view_list_of_surveys()
     {
-        $this->get('/surveys')
+        $this->withExceptionHandling()->get('/surveys')
             ->assertStatus(302)
             ->assertRedirect('/login');
     }

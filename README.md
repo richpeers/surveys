@@ -7,18 +7,31 @@ Uses [Laravel](https://laravel.com/), [VueJS](https://vuejs.org/), [Vuex](https:
 
 ## Roadmap
 - ~~Map out database in an ERD~~
+- ~~Auth~~
 - ~~Tests and backend for creating a new survey~~
+- ~~Refactor vuejs to use vuex for shared state~~
 - ~~Tests and backend for saving a new survey~~
 - ~~Frontend for creating a new survey~~
 - ~~Frontend for saving a new survey~~
 - ~~Validation tests / server side for new survey~~
 - ~~Client side validation for new survey~~
-- List user surveys tests / backend / frontend
-- Edit survey  tests / backend / frontend
+- ~~List user surveys tests / backend / frontend~~
+- ~~Edit survey  tests / backend / frontend~~
+- ~~Update suvey tests / backend / frontend~~
+
+- refactor - inserts for performance / extract out of controllers
+- refactor - DRY vue / vuex -> modules, pull client side validation into top level component for style / options tabs
+
 - API for completing survey via embedded script on client site - tests / backend
 - Frontend script for embedded widget
+- lock a survey to domain(s)
+- live preview for desktop + preview button for mobile
+- mobile only - remove drag/drop and replace with dropdown
 - publish a survey
+- enable downloading of results
 - UI for customising appearance of embedded widget
-- logic / branching
-- laravel dusk?
-- SaaS?
+- scheduled clean up script for soft-deleted questions / options that don't already have answers submitted
+
+- logic / branching (if this option chosen, proceed to x) ?
+- laravel dusk ?
+- SaaS ?

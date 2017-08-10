@@ -11,7 +11,7 @@
             <section class="hero is-primary">
                 <div class="hero-body">
                     <div class="container">
-                        <h1 class="title">Create a Survey</h1>
+                        <h1 class="title">Edit Survey</h1>
                         <p class="subtitle">Embed a widget on your website</p>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <div class="container">
                         <nav class="tabs is-boxed">
                             <ul>
-                                <li><a href="#">Style</a></li>
+                                <li><a href="#">Styles</a></li>
                                 <li class="is-active"><a href="#">Content</a></li>
                                 <li><a href="#">Options</a></li>
                             </ul>
@@ -34,7 +34,14 @@
                 </div>
             </section>
 
+
         </div>
     </survey>
+
+    @push('scripts')
+        <script>
+            window.survey = {!! $survey !!};
+        </script>
+    @endpush
 
 @endsection

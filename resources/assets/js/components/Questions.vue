@@ -74,7 +74,7 @@
             },
             questions: {
                 get() {
-                    return this.$store.getters.getQuestions
+                    return this.$store.getters.getQuestions;
                 },
                 set(value) { // necessary for SortableJS/Vue.Draggable with Vuex
                     this.$store.commit('updateQuestions', value);
@@ -132,10 +132,7 @@
                 return cloneDeep(el); // lodash.clonedeep 4.17.4
             },
             save() {
-                this.$store.dispatch('saveNewSurvey', {
-                    title: this.title,
-                    questions: this.questions
-                });
+                this.$store.dispatch('saveSurvey');
             }
         }
     }

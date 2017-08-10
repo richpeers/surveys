@@ -20,6 +20,7 @@ class CreateOptionsTable extends Migration
             $table->string('answer');
             $table->boolean('canComment');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

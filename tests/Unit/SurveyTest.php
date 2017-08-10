@@ -76,17 +76,21 @@ class SurveyTest extends TestCase
     }
 
     /** @test */
-        function user_can_retrieve_list_of_their_own_surveys()
-        {
-            factory(Survey::class, 3)->create([
-                'user_id' => $this->user->id,
-                'title' => 'Dummy Title',
-            ]);
+    function user_can_retrieve_list_of_their_own_surveys()
+    {
+        factory(Survey::class, 3)->create([
+            'user_id' => $this->user->id,
+            'title' => 'Dummy Title',
+        ]);
 
-            $surveys = $this->user->surveys()->where('title', 'Dummy Title')->first();
+        $surveys = $this->user->surveys()->where('title', 'Dummy Title')->first();
 
-            $this->assertNotNull($surveys);
+        $this->assertNotNull($surveys);
+    }
 
-        }
-
+    /** @test */
+    function user_can_get_survey_with_questions_and_question_options_ordered_by_order_columns()
+    {
+        return true;
+    }
 }

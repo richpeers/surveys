@@ -35,7 +35,7 @@
                         <tr>
                             <td>published</td>
                             <td>{{ $survey->title }}</td>
-                            <td><a class="button" href="#">Edit</a></td>
+                            <td><a class="button" href="{{url('/surveys/' . $survey->id . '/edit')}}">Edit</a></td>
                             <td>impressions</td>
                             <td>hits</td>
                             <td>days</td>

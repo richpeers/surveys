@@ -44,12 +44,12 @@ import Dropdown from './components/Dropdown.vue';
 
 Vue.component('dropdown', Dropdown);
 
-import Create from './components/Create.vue';
+import Survey from './components/Survey.vue';
 
 const app = new Vue({
     el: '#app',
     store,
-    components: {Create},
+    components: {Survey},
     data: {
         navIsActive: false
     }

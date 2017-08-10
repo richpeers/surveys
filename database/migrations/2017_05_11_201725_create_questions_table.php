@@ -23,10 +23,11 @@ class CreateQuestionsTable extends Migration
             $table->boolean('required');
             $table->string('comment_placeholder')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
+    /**a
      * Reverse the migrations.
      *
      * @return void

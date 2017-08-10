@@ -31,7 +31,7 @@ $factory->define(App\Survey::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
-        'order' => $faker->unique()->numberBetween(1, 12),
+        'order' => $faker->unique()->randomDigit,
         'type_id' => $faker->numberBetween(1, 9),
         'title' => $faker->sentence(4),
         'description' => $faker->paragraph(3),
@@ -42,8 +42,8 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Option::class, function (Faker\Generator $faker) {
     return [
-        'order' => 1,
-        'answer' => 'option 1',
+        'order' => $faker->unique()->randomDigit,
+        'answer' => $faker->word,
         'canComment' => false
     ];
 });

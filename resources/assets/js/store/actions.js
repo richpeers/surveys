@@ -1,5 +1,26 @@
+// populate create/edit form data
+export const setSurvey = ({dispatch, commit, getters}) => {
+    return typeof window.survey != 'undefined' ? dispatch('setSurveyForEdit') : dispatch('setSurveyForCreate');
+};
+
+export const setSurveyForEdit = ({commit}) => {
+    commit('updateId', window.survey.id);
+
+    commit('updateTitle', window.survey.title);
+
+    for (let question of window.survey.questions) {
+        question.showBody = false;
+    }
+    commit('updateQuestions', cloneDeep(window.survey.questions));
+};
+
+export const setSurveyForCreate = ({getters, commit}) => {
+    commit('updateQuestions', cloneDeep(getters.getNewSurveyQuestions));
+};
+
+// questions
 export const collapseAll = ({commit, state}) => {
-    for (let [index,] of state.NewSurveyQuestions.entries()) {
+    for (let [index,] of state.Questions.entries()) {
         commit('updateQuestionProperty', {index, property: 'showBody', value: false});
     }
 };
@@ -27,11 +48,12 @@ export const cloneQuestion = ({dispatch, getters, commit}, index) => {
     });
 };
 
+// save survey
 export const updateOrderValues = ({state, commit}) => {
-    for (let [questionIndex,] of state.NewSurveyQuestions.entries()) {
+    for (let [questionIndex,] of state.Questions.entries()) {
         commit('updateQuestionOrder', questionIndex);
-        if ("options" in state.NewSurveyQuestions[questionIndex]) {
-            for (let [index,] of state.NewSurveyQuestions[questionIndex].options.entries()) {
+        if ("options" in state.Questions[questionIndex]) {
+            for (let [index,] of state.Questions[questionIndex].options.entries()) {
                 commit('updateAnswerOrder', {questionIndex, index})
             }
         }
@@ -39,20 +61,39 @@ export const updateOrderValues = ({state, commit}) => {
     }
 };
 
-export const saveNewSurvey = ({dispatch, commit}, payload) => {
+export const saveSurvey = ({dispatch, getters, commit}) => {
+
     dispatch('updateOrderValues')
-        .then(function () {
-            axios.post('/surveys/store', payload)
-                .then(function (response) {
-                    console.log(response.data);
-                    window.location = response.data.redirect;
-                })
-                .catch(function (error) {
-                    console.log(error.response.data);
-                    commit('updateValidation', {
-                        form: 'NewSurvey',
-                        errors: error.response.data,
-                    })
-                });
+
+        .then(() => {
+            if (getters.getSurveyId !== null) {
+                return dispatch('updateSurvey');
+            }
+            return dispatch('saveNewSurvey');
+        })
+        .then((response) => {
+            console.log(response.data);
+            window.location = response.data.redirect;
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            // commit('updateValidation', {
+            //     form: 'NewSurvey',
+            //     errors: error.response.data,
+            // })
         });
+};
+
+export const saveNewSurvey = ({getters}) => {
+    return axios.post('/surveys/store', {
+        title: getters.getTitle,
+        questions: getters.getQuestions,
+    })
+};
+
+export const updateSurvey = ({getters}) => {
+    return axios.put('/surveys/' + getters.getSurveyId, {
+        title: getters.getTitle,
+        questions: getters.getQuestions,
+    })
 };

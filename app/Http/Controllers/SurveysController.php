@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Survey;
-use App\Http\Requests\StoreSurvey;
-use App\Option;
 use Illuminate\Http\Request;
-use Validator;
+use App\Http\Requests\StoreSurvey;
+use App\Survey;
+use App\Option;
 
 /**
  * Class SurveysController
@@ -23,6 +22,7 @@ class SurveysController extends Controller
     public function index(Request $request)
     {
         $surveys = $request->user()->surveys()->get();
+
         return view('surveys.index', compact('surveys'));
     }
 
@@ -99,19 +99,84 @@ class SurveysController extends Controller
      */
     public function edit($id)
     {
-        //
+        $survey = Survey::with('questions.options')->findOrFail($id)->toJson();
+        return view('surveys.edit', compact('survey'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  StoreSurvey $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreSurvey $request, $id)
     {
-        //
+        $survey = Survey::with('questions.options')->findOrFail($id);
+
+        $questions = collect($request->questions)->transform(function ($question) {
+            $question['id'] = isset($question['id']) ? $question['id'] : 0;
+            return $question;
+        });
+
+        //update survey
+        $survey->title = $request->title;
+        $survey->save();
+
+        // soft delete questions not included in updated survey
+        $questionsToSoftDelete = $survey->questions()->whereNotIn('id', $questions->pluck('id'));
+
+        $questionsToSoftDelete->each(function ($question) {
+            $question->options()->delete();
+        });
+
+        $questionsToSoftDelete->delete();
+
+        //update or create questions
+        $questions->each(function ($q) use ($survey) {
+
+            $question = $survey->questions()->updateOrCreate(
+                [
+                    'id' => $q['id']
+                ],
+                [
+                    'order' => $q['order'],
+                    'type_id' => $q['type_id'],
+                    'title' => $q['title'],
+                    'description' => $q['description'],
+                    'required' => $q['required'],
+                    'comment_placeholder' => $q['comment_placeholder']
+                ]
+            );
+
+            $options = collect($q['options'])->transform(function ($option) {
+                $option['id'] = isset($option['id']) ? $option['id'] : 0;
+                return $option;
+            });
+
+            // soft delete answer options not included in updated question
+            $question->options()->whereNotIn('id', $options->pluck('id'))->delete();
+
+            //update or create answer options
+            $options->each(function ($option) use ($question) {
+
+                $question->options()->updateOrCreate(
+                    [
+                        'id' => $option['id']
+                    ],
+                    [
+                        'order' => $option['order'],
+                        'answer' => $option['answer'],
+                        'canComment' => $option['canComment']
+                    ]
+                );
+            });
+
+        });
+        return response()->json([
+            'updated' => true,
+            'redirect' => route('surveys'),
+        ], 200);
     }
 
     /**
