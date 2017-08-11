@@ -5,6 +5,11 @@
 @import "./node_modules/bulma/bulma";
 @import "/components/dropdown";
 @import "/components/tooltip";
+@import "auth.scss";
+
+html, body {
+  height: 100%;
+}
 
 [v-cloak] {
   display: none;

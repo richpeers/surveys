@@ -1,0 +1,32 @@
+#auth {
+  height: 100%;
+  background-color: $turquoise;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 400px;
+    h1 {
+      color: white;
+    }
+    .field {
+      margin-bottom: 1.5em;
+    }
+
+    .auth-footer {
+      display: flex;
+      align-items: center;
+      button{
+        flex-grow: 1;
+        margin-right: 5px;
+        background-color: #007373;
+      }
+      a{
+        flex-grow: 0;
+      }
+
+    }
+  }
+
+}
