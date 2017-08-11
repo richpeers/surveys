@@ -35,9 +35,9 @@
             <button type="submit" class="button is-medium is-success">
                 Log In
             </button>
-            <a class="button is-success">Register</a>
+            <a href="{{ route('register') }}" class="button is-success">Register</a>
 
-            <a class="button is-success">Forgot Password?</a>
+            <a href="{{ route('password.request') }}" class="button is-success">Forgot Password?</a>
 
 
         </div>

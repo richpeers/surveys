@@ -11,8 +11,12 @@
 </head>
 
 <body>
+
+<a href="{{ url('/') }}" class="fixed-top-left button is-success">Surveys</a>
+
 <div id="auth">
-@yield('content')
+    @yield('content')
 </div>
+
 </body>
 </html>
