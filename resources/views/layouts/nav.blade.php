@@ -7,8 +7,8 @@
             <a class="navbar-item" href="https://github.com/richpeers/surveys" target="_blank">
                 <span class="icon" style="color: #333;"><i class="fa fa-github"></i></span>
             </a>
-            <a class="navbar-item" href="https://twitter.com/richpeers" target="_blank">
-                <span class="icon" style="color: #55acee;"><i class="fa fa-twitter"></i></span>
+            <a class="navbar-item" href="https://www.linkedin.com/in/richpeers/" target="_blank">
+                <span class="icon" style="color: #0077B5;"><i class="fa fa-linkedin"></i></span>
             </a>
 
             <div class="navbar-burger" :class="{ 'is-active': navIsActive }" @click="navIsActive = !navIsActive"
