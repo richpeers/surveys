@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/', 'SurveysController@create');
 Route::post('/surveys/store', 'SurveysController@store')->middleware('auth');
