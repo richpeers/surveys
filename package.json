@@ -10,7 +10,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.18.1",
     "browser-sync": "^2.18.12",
     "browser-sync-webpack-plugin": "^1.1.4",
     "bulma": "^0.4.2",
