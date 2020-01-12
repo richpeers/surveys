@@ -2,10 +2,12 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 //@import "./node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "theme-variables.scss";
-@import "./node_modules/bulma/bulma";
+@import "~bulma";
+//@import "/components/dropdown.scss";
 @import "/components/dropdown";
+//@import "/components/tooltip.scss";
 @import "/components/tooltip";
-@import "auth.scss";
+@import "auth";
 
 html, body {
   height: 100%;

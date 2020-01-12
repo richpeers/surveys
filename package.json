@@ -19,9 +19,7 @@
     "lodash": "^4.17.4",
     "vue": "^2.1.10",
     "vuedraggable": "^2.14.0",
-    "vuex": "^2.3.1"
-  },
-  "dependencies": {
+    "vuex": "^2.3.1",
     "vuelidate": "^0.5.0"
   }
 }
