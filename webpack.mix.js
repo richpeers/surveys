@@ -19,7 +19,7 @@ if (mix.inProduction()) {
         .version();
 } else {
     mix.browserSync({
-        proxy: 'surveys.dev', // with Valet
+        proxy: '127.0.0.1:8000', // with Valet
         // proxy: 'localhost:8000', // with artisan serve
         // proxy: ''surveys.app', // with homestead
         browser: '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' // windows linux subsystem

@@ -25,8 +25,8 @@
             <div class="field">
                 <p class="control has-text-right">
                     <span v-if="!isLoggedIn">
-                        <a href="#" class="button is-primary is-inverted">Find out more..</a>
-                        <a href="/register" class="button is-primary">Register</a>
+                        <button href="#" class="button is-primary is-inverted" disabled>Find out more..</button>
+                        <button href="#" class="button is-primary" disabled>Register</button>
                         <button class="button is-danger is-outlined" disabled>Save</button>
                     </span>
                     <button v-else @click="save" class="button is-primary is-outlined" :disabled="$v.$invalid">Save

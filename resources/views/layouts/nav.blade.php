@@ -27,15 +27,9 @@
                 <a class="navbar-item" href="{{url('/')}}">New Survey</a>
 
                 @if (Auth::guest())
-                    <div class="nav-item">
-                        <div class="field is-grouped">
-                            <p class="control">
-                                <a class="button is-primary is-inverted" href="{{ route('login') }}">Login</a>
-                            </p>
-                            <p class="control">
-                                <a class="button is-primary" href="{{ route('register') }}">Register</a>
-                            </p>
-                        </div>
+                    <div class="buttons">
+                        <a class="button is-primary is-inverted" href="#" disabled>Login</a>
+                        <a class="button is-primary" href="#" disabled>Register</a>
                     </div>
                 @else
                     <div class="navbar-item has-dropdown is-hoverable">
